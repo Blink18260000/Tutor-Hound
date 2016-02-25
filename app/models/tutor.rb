@@ -4,8 +4,8 @@ class Tutor < ActiveRecord::Base
 
   belongs_to :user
 
-  belongs_to :region
-    through: :user
+  has_one :region,
+    through: :user,
     source: :region
 
   has_many :jobs

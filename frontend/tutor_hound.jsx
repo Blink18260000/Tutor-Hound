@@ -5,10 +5,13 @@ var React = require('react'),
     hashHistory = ReactRouter.hashHistory,
     Route = ReactRouter.Route,
     IndexRoute = ReactRouter.IndexRoute,
-    root = document.getElementById('root');
+    root = document.getElementById('root'),
+
+    ApiUtil = require('./util/ApiUtil');
 
 var App = React.createClass({
   render: function () {
+    window.ApiUtil = ApiUtil;
     return (
       <div>
         <h1>Main landing page</h1>

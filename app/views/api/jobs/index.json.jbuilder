@@ -1,3 +1,1 @@
-json.array! @jobs do |job|
-  json.partial! 'job', job: job
-end
+json.partial! 'job', collection: @jobs, as: :job
