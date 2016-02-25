@@ -37,6 +37,7 @@ class Api::JobsController < ApplicationController
   end
 
   def show
+    @job = Job.find_by_id(params[:id])
   end
 
   def update
@@ -44,6 +45,7 @@ class Api::JobsController < ApplicationController
     if @job.client_id == current_user.id
       @job.update(job_params)
     end
+    render :show
   end
 
   def destroy
@@ -51,6 +53,7 @@ class Api::JobsController < ApplicationController
     if @job.client_id == current_user.id
       @job.destroy
     end
+    render :show
   end
 
   private
