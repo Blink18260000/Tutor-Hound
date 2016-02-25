@@ -23,7 +23,21 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={App} >
-
+    <IndexRoute path=":username" component={Profile}>
+      <Route path="jobs" component={MyJobs}>
+        <Route path="new" component={NewJobForm} />
+        <Route path="tests" component={TestList} />
+      </Route>
+      <Route path="tutor" component={TutorPane}>
+        <Route path="work" component={MyWork} />
+        <Route path="find-work" component={FindWork} />
+      </Route>
+      <Route path="schedule" component={Schedule} />
+      <Route path="register" component={Register} />
+      <Route path="settings" component={Settings} />
+    </IndexRoute>
+    <Route path="login" component={Login} />
+    <Route path="signup" component={Signup} />
   </Route>
 );
 

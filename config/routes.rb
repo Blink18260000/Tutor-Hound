@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/users/guest', to: 'users#guest'
 
   namespace :api, defaults: { format: :json } do
+    resources :users, only: [:index, :update]
     resources :tutors, only: [:index, :create, :update, :destroy]
     resources :jobs, only: [:index, :show, :create, :update, :destroy]
     resources :tests, only: [:index]

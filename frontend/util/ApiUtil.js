@@ -1,6 +1,33 @@
 var ApiActions = require('../actions/api_actions');
 
 var ApiUtil = {
+  //User data API
+  fetchUserData: function() {
+    var that = this;
+    $.ajax({
+      method: 'GET',
+      url: 'api/tutors',
+      dataType: 'json',
+      success: function(resp) {
+        console.log(resp);
+        ApiActions.receiveTutor(resp);
+      }
+    });
+  },
+
+  fetchTutor: function() {
+    var that = this;
+    $.ajax({
+      method: 'GET',
+      url: 'api/tutors',
+      dataType: 'json',
+      success: function(resp) {
+        console.log(resp);
+        ApiActions.receiveTutor(resp);
+      }
+    });
+  },
+
   //Tutor API
   fetchTutor: function() {
     var that = this;
