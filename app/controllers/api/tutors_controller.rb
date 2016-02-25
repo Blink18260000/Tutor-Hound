@@ -1,4 +1,9 @@
 class Api::TutorsController < ApplicationController
+  def index
+    @tutor = Tutor.find_by(user_id: current_user.id)
+    render :show
+  end
+
   def create
     @tutor = Tutor.new(tutor_params)
     @tutor.user_id = current_user.id
@@ -8,10 +13,6 @@ class Api::TutorsController < ApplicationController
     else
       render json: @tutor.errors.full_messages, status: 422
     end
-  end
-
-  def show
-    @tutor = Tutor.find_by_id(params[:id])
   end
 
   def update

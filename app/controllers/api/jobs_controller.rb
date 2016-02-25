@@ -30,7 +30,7 @@ class Api::JobsController < ApplicationController
     @job.completed = nil
 
     if @job.save
-      render json: @job
+      render :show
     else
       render json: @job.errors.full_messages, status: 422
     end
