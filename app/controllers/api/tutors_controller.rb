@@ -1,7 +1,11 @@
 class Api::TutorsController < ApplicationController
   def index
     @tutor = Tutor.find_by(user_id: current_user.id)
-    render :show
+    if @tutor
+      render :show
+    else
+      render json: {}
+    end
   end
 
   def create

@@ -6,24 +6,10 @@ var ApiUtil = {
     var that = this;
     $.ajax({
       method: 'GET',
-      url: 'api/tutors',
+      url: 'api/users',
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
-        ApiActions.receiveTutor(resp);
-      }
-    });
-  },
-
-  fetchTutor: function() {
-    var that = this;
-    $.ajax({
-      method: 'GET',
-      url: 'api/tutors',
-      dataType: 'json',
-      success: function(resp) {
-        console.log(resp);
-        ApiActions.receiveTutor(resp);
+        ApiActions.receiveUser(resp);
       }
     });
   },
@@ -36,7 +22,6 @@ var ApiUtil = {
       url: 'api/tutors',
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.receiveTutor(resp);
       }
     });
@@ -50,7 +35,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {tutor: {f_name: fName, l_name: lName}},
       success: function(resp) {
-        console.log(resp);
         ApiActions.registeredTutor(resp);
       }
     });
@@ -64,7 +48,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {tutor: {f_name: fName, l_name: lName}},
       success: function(resp) {
-        console.log(resp);
         ApiActions.receiveTutor(resp);
       }
     });
@@ -77,7 +60,6 @@ var ApiUtil = {
       url: 'api/tutors/' + id.to_s,
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.deletedTutor(resp);
       }
     });
@@ -92,7 +74,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {requestType: 'client'},
       success: function(resp) {
-        console.log(resp);
         ApiActions.receivedClientJobs(resp);
       }
     });
@@ -106,7 +87,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {requestType: 'tutor'},
       success: function(resp) {
-        console.log(resp);
         ApiActions.receivedTutorJobs(resp);
       }
     });
@@ -120,7 +100,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {requestType: 'available'},
       success: function(resp) {
-        console.log(resp);
         ApiActions.receivedAvailableJobs(resp);
       }
     });
@@ -134,7 +113,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {job: job},
       success: function(resp) {
-        console.log(resp);
         ApiActions.jobCreated(resp);
       }
     });
@@ -147,7 +125,6 @@ var ApiUtil = {
       url: 'api/jobs/' + jobId,
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.jobReceived(resp);
       }
     });
@@ -161,7 +138,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {job: job},
       success: function(resp) {
-        console.log(resp);
         ApiActions.jobReceived(resp);
       }
     });
@@ -174,7 +150,6 @@ var ApiUtil = {
       url: 'api/jobs/' + jobId,
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.jobDeleted(resp);
       }
     });
@@ -188,7 +163,6 @@ var ApiUtil = {
       url: 'api/tests',
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.receiveTests(resp);
       }
     });
@@ -202,7 +176,6 @@ var ApiUtil = {
       url: 'api/regions',
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.receiveRegions(resp);
       }
     });
@@ -216,7 +189,6 @@ var ApiUtil = {
       url: 'api/quals',
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.receiveQuals(resp);
       }
     });
@@ -230,7 +202,6 @@ var ApiUtil = {
       dataType: 'json',
       data: {qual: {test_id: testId}},
       success: function(resp) {
-        console.log(resp);
         ApiActions.qualRegistered(resp);
       }
     });
@@ -243,7 +214,6 @@ var ApiUtil = {
       url: 'api/quals/' + id.to_s,
       dataType: 'json',
       success: function(resp) {
-        console.log(resp);
         ApiActions.qualUnregistered(resp);
       }
     });

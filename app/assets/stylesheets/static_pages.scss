@@ -1,3 +1,159 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body, header, nav, h1, a,
+ul, li, strong, main, button, i,
+section, img, div, h2, p, form,
+fieldset, label, input, textarea,
+span, article, footer, time, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+input[type="password"],
+input[type="email"],
+input[type="text"],
+input[type="submit"],
+textarea,
+button {
+  /*
+  Get rid of native styling. Read more here:
+  http://css-tricks.com/almanac/properties/a/appearance/
+  */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+/* Clearfix */
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.navbar {
+  display: inline-block;
+  padding: 12px 0px;
+  font-size: 32px;
+  width: 100%;
+  border-bottom: 1px solid #ebecec;
+}
+
+.navbar-menu {
+  max-width: 1200px;
+  height: 36px;
+  vertical-align: middle;
+  position: relative;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  cursor: pointer;
+  display: inline-block;
+  width: wrap;
+  height: 30px;
+  font-kerning: -2px;
+  font-size: 30px;
+  font-weight: bolder;
+  position: relative;
+  bottom: 6px;
+}
+
+.logo-first {
+  color: #00033d;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.logo-second {
+  color: #000ad6;
+}
+
+.navbar-link-container {
+  float: right;
+  height: 36px;
+}
+
+.navbar-link {
+  cursor: pointer;
+  color: #626A6B;
+  font-weight: 300;
+  font-size: .75rem;
+  line-height: 36px;
+  vertical-align: middle;
+  padding: 0px 16.8px;
+  box-sizing: border-box;
+}
+
+.navbar-link:not(:first-child):before {
+  content: "";
+  display: inline-block;
+  height: 1.25rem;
+  border-left: 1px solid #cfd2d3;
+  position: relative;
+  left: -16.8px;
+  transform: translateY(25%);
+}
+
+.dashboard-container {
+  width: 100%;
+  background: #f5f6f6;
+  padding: 32px 0 0 0;
+}
+
+.dashboard-content-container {
+  max-width: 960px;
+  margin: auto;
+  color: #323a3b;
+  background: #f5f6f6;
+}
+
+.profile-pic {
+  background: #00033d;
+  border-radius: 43px;
+  height: 86px;
+  width: 86px;
+  margin: 0 24px 0 0;
+  display: inline-block;
+}
+
+.salute-container {
+  position: relative;
+}
+
+.salute-header {
+  display: inline-block;;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 56px;
+  margin-bottom: 15px;
+  position: absolute;
+  top: 0;
+}

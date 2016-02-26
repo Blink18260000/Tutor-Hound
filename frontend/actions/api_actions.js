@@ -3,6 +3,13 @@ var Dispatcher = require('../dispatcher'),
 
 var ApiActions = {
 
+  receiveUser: function (user) {
+    Dispatcher.dispatch({
+      actionType: ApiConstants.USER_RECEIVED,
+      user: user
+    });
+  },
+
   receiveTutor: function (tutor) {
     Dispatcher.dispatch({
       actionType: ApiConstants.TUTOR_RECEIVED,

@@ -1,35 +1,33 @@
 var React = require('react'),
     SessionStore = require('../stores/session'),
-    ApiUtil = require('../util/apiUtil');
+    ApiUtil = require('../util/ApiUtil'),
+    HashHistory = require('react-router').hashHistory;
+
+
 
 var Profile = React.createClass({
-  getInitialState: function () {
-    return {benches: BenchStore.all()};
-  },
-
-  _onChange: function () {
-    this.setState({benches: BenchStore.all()});
-  },
-
-  componentDidMount: function (callback) {
-    ApiUtil.fetchBenches();
-    this.listenerToken = BenchStore.addListener(this._onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.listenerToken.remove();
-  },
+  // getInitialState: function () {
+  //   return {userData: SessionStore.info()};
+  // },
+  //
+  // _onChange: function () {
+  //   this.setState({userData: SessionStore.info()});
+  //
+  // },
+  //
+  // componentDidMount: function () {
+  //   this.listenerToken = SessionStore.addListener(this._onChange);
+  // },
+  //
+  // componentWillUnmount: function () {
+  //   this.listenerToken.remove();
+  // },
 
   render: function () {
     return (
       <div>
-        <ul>
-          {
-            this.state.benches.map( function (bench) {
-              return <li key={bench.lat}>{bench.description}</li>;
-            }, this)
-          }
-        </ul>
+        potato?
+        {this.props.children}
       </div>
     );
   }
