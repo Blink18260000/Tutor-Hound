@@ -11,22 +11,19 @@ var React = require('react'),
     SessionStore = require('./stores/session'),
 
     Dashboard = require('./components/dashboard'),
-    Navbar = require('./components/navbar');
-    {/*
-    MyJobs = require('./components/my_jobs'),
-    NewJobForm = require('./components/new_job_form'),
-    TestList = require('./components/test_list'),
-    TutorPane = require('./components/tutor_pane'),
-    MyWork = require('./components/my_work'),
-    FindWork = require('./components/find_work'),
-    Schedule = require('./components/schedule'),
-    Register = require('./components/register_tutor'),
-    Settings = require('./components/settings'),
-    Login = require('./components/login'),
-    Signup = require('./components/signup');
-    */}
+    Navbar = require('./components/navbar'),
+    Account = require('./components/account'),
+    AccountInfo = require('./components/account_info'),
+    EditAccountInfo = require('./components/edit_account_info'),
+    AccountPassword = require('./components/account_password'),
+    AccountTransactions = require('./components/account_transactions'),
+    AccountDeactivate = require('./components/account_deactivate');
 
 var App = React.createClass({
+  componentDidMount: function() {
+    hashHistory.push("dashboard");
+  },
+
   render: function () {
     window.ApiUtil = ApiUtil;
     return (
@@ -44,24 +41,14 @@ var App = React.createClass({
 var routes = (
   <Route path="/" component={App} >
     <Route path="dashboard" component={Dashboard} />
-    {/*
-      <Route path="account" component={Account} />
-      <Route path="JobForm" component={JobForm} />
-      <Route path="jobs" component={MyJobs}>
-        <Route path="new" component={NewJobForm} />
-        <Route path="tests" component={TestList} />
-      </Route>
-      <Route path="tutor" component={TutorPane}>
-        <Route path="work" component={MyWork} />
-        <Route path="find-work" component={FindWork} />
-      </Route>
-      <Route path="schedule" component={Schedule} />
-      <Route path="register" component={Register} />
-      <Route path="settings" component={Settings} />
+    <Route path="account" component={Account}>
+      <IndexRoute component={AccountInfo}>
+        <Route path="edit" component={EditAccountInfo}/>
+      </IndexRoute>
+      <Route path="password" component={AccountPassword} />
+      <Route path="transactions" component={AccountTransactions} />
+      <Route path="deactivate" component={AccountDeactivate} />
     </Route>
-    <Route path="login" component={Login} />
-    <Route path="signup" component={Signup} />
-    */}
   </Route>
 );
 

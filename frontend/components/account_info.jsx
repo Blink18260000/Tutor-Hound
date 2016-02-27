@@ -3,9 +3,7 @@ var React = require('react'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory;
 
-
-
-var Dashboard = React.createClass({
+var AccountInfo = React.createClass({
   getInitialState: function () {
     return {userData: SessionStore.info()};
   },
@@ -14,10 +12,15 @@ var Dashboard = React.createClass({
     this.setState({userData: SessionStore.info()});
   },
 
+  _edit: function() {
+    HashHistory.push("/account/edit");
+  },
+
   componentDidMount: function () {
     ApiUtil.fetchUserData();
     ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onChange);
+
   },
 
   componentWillUnmount: function () {
@@ -26,17 +29,16 @@ var Dashboard = React.createClass({
 
   render: function () {
     return (
-      <div className="container">
-        <div className="content-container">
-          <div className="salute-container">
-            <div className="profile-pic" />
-            <h1>Welcome to TutorHound!</h1>
-
-          </div>
+      <div className="account-option-container">
+        <div className="account-panel-header">
+          <h3 >Account</h3>
+          <div className="account-panel-edit-button"
+            onClick={this._edit}>Edit</div>
         </div>
+        {this.props.children}
       </div>
     );
   }
 });
 
-module.exports = Dashboard;
+module.exports = AccountInfo;

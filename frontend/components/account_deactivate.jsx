@@ -3,9 +3,7 @@ var React = require('react'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory;
 
-
-
-var Dashboard = React.createClass({
+var AccountDeactivate = React.createClass({
   getInitialState: function () {
     return {userData: SessionStore.info()};
   },
@@ -18,6 +16,7 @@ var Dashboard = React.createClass({
     ApiUtil.fetchUserData();
     ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onChange);
+
   },
 
   componentWillUnmount: function () {
@@ -26,17 +25,9 @@ var Dashboard = React.createClass({
 
   render: function () {
     return (
-      <div className="container">
-        <div className="content-container">
-          <div className="salute-container">
-            <div className="profile-pic" />
-            <h1>Welcome to TutorHound!</h1>
-
-          </div>
-        </div>
-      </div>
+      <div className="account-option-container" />
     );
   }
 });
 
-module.exports = Dashboard;
+module.exports = AccountDeactivate;
