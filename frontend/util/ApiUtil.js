@@ -218,6 +218,18 @@ var ApiUtil = {
       }
     });
   },
+
+  //Sign Out
+  logOut: function() {
+    var that = this;
+    $.ajax({
+      method: 'DELETE',
+      url: '/session',
+      success: function(resp) {
+        window.location.href= "/session/new";
+      }
+    });
+  }
 };
 
 module.exports = ApiUtil;

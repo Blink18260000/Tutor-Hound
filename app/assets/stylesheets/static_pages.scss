@@ -239,13 +239,17 @@ h3 {
   border-radius: 4px;
   vertical-align: middle;
   padding: .5em 1.38em;
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 22.4px;
 }
 
 .account-panel-edit-button:hover {
   background-color: #1da3bf;
   color: #ffffff;
+}
+
+.button-small {
+  font-size: 1rem;
 }
 
 .footer {

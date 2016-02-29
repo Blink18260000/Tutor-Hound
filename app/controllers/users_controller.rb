@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   def guest
     @user = User.find_by_credentials("MRice", "starwars")
+    sign_in(@user)
     redirect_to app_url
   end
 

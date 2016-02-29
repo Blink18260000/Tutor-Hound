@@ -44,7 +44,7 @@ var Dashboard = React.createClass({
         this.setState({current: "deactivate"});
         break;
       case "log Out":
-
+        ApiUtil.logOut();
         break;
     }
   },

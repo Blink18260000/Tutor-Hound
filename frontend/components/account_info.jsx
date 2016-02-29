@@ -32,10 +32,12 @@ var AccountInfo = React.createClass({
       <div className="account-option-container">
         <div className="account-panel-header">
           <h3 >Account</h3>
-          <div className="account-panel-edit-button"
+          <div className="account-panel-edit-button button-small"
             onClick={this._edit}>Edit</div>
         </div>
-        {this.props.children}
+        <div className="account-panel-body">
+
+        </div>
       </div>
     );
   }

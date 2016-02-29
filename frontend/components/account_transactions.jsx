@@ -25,7 +25,15 @@ var AccountTransactions = React.createClass({
 
   render: function () {
     return (
-      <div className="account-option-container" />
+      <div className="account-option-container">
+        <div className="account-panel-header">
+          <h3 >Transactions</h3>
+
+        </div>
+        <div className="account-panel-body">
+        
+        </div>
+      </div>
     );
   }
 });

@@ -25,7 +25,15 @@ var AccountPassword = React.createClass({
 
   render: function () {
     return (
-      <div className="account-option-container" />
+      <div className="account-option-container">
+        <div className="account-panel-header">
+          <h3 >Password</h3>
+
+        </div>
+        <div className="account-panel-body">
+
+        </div>
+      </div>
     );
   }
 });
