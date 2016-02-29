@@ -54,7 +54,7 @@ var Dashboard = React.createClass({
       <div className="container">
         <div className="content-container">
           <h1>Your Account</h1>
-          <div className="account-management-container">
+          <div className="account-management-container group">
             <ul className="account-nav">
               {
                 this.state.options.map(function(option) {

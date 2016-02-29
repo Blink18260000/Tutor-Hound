@@ -42,9 +42,8 @@ var routes = (
   <Route path="/" component={App} >
     <Route path="dashboard" component={Dashboard} />
     <Route path="account" component={Account}>
-      <IndexRoute component={AccountInfo}>
-        <Route path="edit" component={EditAccountInfo}/>
-      </IndexRoute>
+      <IndexRoute component={AccountInfo} />
+      <Route path="edit" component={EditAccountInfo}/>
       <Route path="password" component={AccountPassword} />
       <Route path="transactions" component={AccountTransactions} />
       <Route path="deactivate" component={AccountDeactivate} />

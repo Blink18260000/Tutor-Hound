@@ -11,6 +11,12 @@ class Api::UsersController < ApplicationController
     render :show
   end
 
+  def destroy
+    @user = current_user
+    @user.destroy!
+    render nothing: true
+  end
+
   private
   def user_params
     params.require(:user).permit(:password, :region_id, :address, :phone_number)

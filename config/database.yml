@@ -78,8 +78,3 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: Tutor-Hound_production
-  username: Tutor-Hound
-  password: <%= ENV['TUTOR-HOUND_DATABASE_PASSWORD'] %>

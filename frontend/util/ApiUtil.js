@@ -229,6 +229,18 @@ var ApiUtil = {
         window.location.href= "/session/new";
       }
     });
+  },
+
+  //Deactivate account
+  deactivate: function() {
+    var that = this;
+    $.ajax({
+      method: 'DELETE',
+      url: 'api/users',
+      success: function(resp) {
+        window.location.href= "/session/new";
+      }
+    });
   }
 };
 

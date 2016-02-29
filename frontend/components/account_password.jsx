@@ -27,11 +27,19 @@ var AccountPassword = React.createClass({
     return (
       <div className="account-option-container">
         <div className="account-panel-header">
-          <h3 >Password</h3>
-
+          <h3 >Change Password</h3>
         </div>
         <div className="account-panel-body">
+          <label htmlFor="old-password">Enter current password:</label>
+          <input id="old-password" name="old-password" type="password" />
 
+          <label htmlFor="new-password-1">Enter new password:</label>
+          <input id="new-password-1" name="new-password-1" type="password" />
+
+          <label htmlFor="new-password-2">Confirm new password:</label>
+          <input id="new-password-2" name="new-password-2" type="password" />
+
+          <div className="grey-button" onClick={this._cancel}></div>
         </div>
       </div>
     );

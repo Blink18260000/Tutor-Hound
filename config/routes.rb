@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/app', to: 'static_pages#root'
 
   get '/users/guest', to: 'users#guest'
+  delete '/api/users', to: 'api/users#destroy'
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:index]
