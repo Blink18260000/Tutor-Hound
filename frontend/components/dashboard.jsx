@@ -37,7 +37,8 @@ var Dashboard = React.createClass({
   },
 
   _onClientJobChange: function () {
-    this.state.builtJobs = [];
+    this.state.builtCompleteJobs = [];
+    this.state.builtIncompleteJobs = [];
     var clientJobs = ClientJobStore.getJobList();
     for (var i = 0; i < clientJobs.length; i++) {
       var job = clientJobs[i];
@@ -45,16 +46,15 @@ var Dashboard = React.createClass({
         this.state.builtCompleteJobs.push(
           <div key={i} className="job-container">
             <div className="job text field">
-              Job completed: {job.completed.toString()}
-            </div>
-            <div className="job text field">
               Test id: {job.test_id}
             </div>
             <div className="job text field">
               Date: {job.date}
             </div>
             <div className="job text field">
-              Tutor assigned: {Boolean(job.tutor_id).toString()}
+              Tutor assigned: {job.tutor_f_name ?
+                job.tutor_f_name + " " + job.tutor_l_name :
+                "No tutor assigned yet."}
             </div>
           </div>
         );
@@ -62,16 +62,15 @@ var Dashboard = React.createClass({
         this.state.builtIncompleteJobs.push(
           <div key={i} className="job-container">
             <div className="job text field">
-              Job completed: {job.completed.toString()}
-            </div>
-            <div className="job text field">
               Test id: {job.test_id}
             </div>
             <div className="job text field">
               Date: {job.date}
             </div>
             <div className="job text field">
-              Tutor assigned: {Boolean(job.tutor_id).toString()}
+              Tutor assigned: {job.tutor_f_name ?
+                job.tutor_f_name + " " + job.tutor_l_name :
+                "No tutor assigned yet."}
             </div>
           </div>
         );
@@ -101,8 +100,12 @@ var Dashboard = React.createClass({
   handleNewJob: function (event) {
     event.preventDefault();
     var testDate = new Date();
-    ApiUtil.createJob({test_id: this.linkState('test').value,
-      date: testDate.valueOf()});
+    ApiUtil.createJob(
+      {
+        test_id: this.linkState('test').value,
+        date: (Math.floor(testDate.valueOf() / 1000))
+      }
+    );
     console.log(this.linkState('test').value);
     console.log(this.linkState('date').value);
   },

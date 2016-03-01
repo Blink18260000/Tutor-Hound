@@ -13,7 +13,9 @@ ClientJobStore.__onDispatch = function(payload) {
       this.__emitChange();
       break;
     case ApiConstants.JOB_CREATED:
+      this.addJob(payload.job);
       this.__emitChange();
+      break;
   }
 };
 

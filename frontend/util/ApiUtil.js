@@ -125,6 +125,7 @@ var ApiUtil = {
       url: 'api/jobs/' + jobId,
       dataType: 'json',
       success: function(resp) {
+        console.log(resp);
         ApiActions.jobReceived(resp);
       }
     });
