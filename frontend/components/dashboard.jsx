@@ -36,6 +36,12 @@ var Dashboard = React.createClass({
     this.setState({testData: testData});
   },
 
+  _parseDate: function(unixDate) {
+    var dateHold = new Date(0);
+    dateHold.setUTCSeconds(unixDate);
+    return dateHold.toLocaleDateString();
+  },
+
   _onClientJobChange: function () {
     this.state.builtCompleteJobs = [];
     this.state.builtIncompleteJobs = [];
@@ -45,14 +51,14 @@ var Dashboard = React.createClass({
       if (job.completed) {
         this.state.builtCompleteJobs.push(
           <div key={i} className="job-container">
-            <div className="job text field">
-              Test id: {job.test_id}
+            <div className="job-text-field">
+              Test: {job.test}
             </div>
-            <div className="job text field">
-              Date: {job.date}
+            <div className="job-text-field">
+              Date: {this._parseDate(job.date)}
             </div>
-            <div className="job text field">
-              Tutor assigned: {job.tutor_f_name ?
+            <div className="job-text-field">
+              Tutor: {job.tutor_f_name ?
                 job.tutor_f_name + " " + job.tutor_l_name :
                 "No tutor assigned yet."}
             </div>
@@ -61,14 +67,14 @@ var Dashboard = React.createClass({
       } else {
         this.state.builtIncompleteJobs.push(
           <div key={i} className="job-container">
-            <div className="job text field">
-              Test id: {job.test_id}
+            <div className="job-text-field">
+              Test: {job.test}
             </div>
-            <div className="job text field">
-              Date: {job.date}
+            <div className="job-text-field">
+              Date: {this._parseDate(job.date)}
             </div>
-            <div className="job text field">
-              Tutor assigned: {job.tutor_f_name ?
+            <div className="job-text-field">
+              Tutor: {job.tutor_f_name ?
                 job.tutor_f_name + " " + job.tutor_l_name :
                 "No tutor assigned yet."}
             </div>

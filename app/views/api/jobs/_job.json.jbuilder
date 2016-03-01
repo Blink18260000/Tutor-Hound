@@ -6,5 +6,5 @@ else
   json.tutor_l_name job.tutor
 end
 json.date job.date
-json.test_id job.test_id
+json.test job.test.name
 json.completed job.completed

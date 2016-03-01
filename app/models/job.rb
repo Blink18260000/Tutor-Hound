@@ -5,6 +5,10 @@ class Job < ActiveRecord::Base
     foreign_key: :tutor_id,
     class_name: :Tutor
 
+  belongs_to :test,
+    foreign_key: :test_id,
+    class_name: :Test
+
   belongs_to :client,
     foreign_key: :client_id,
     class_name: :User
