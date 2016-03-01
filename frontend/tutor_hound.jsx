@@ -6,6 +6,7 @@ var React = require('react'),
     Route = ReactRouter.Route,
     IndexRoute = ReactRouter.IndexRoute,
     root = document.getElementById('root'),
+    Modal = require('react-modal'),
 
     ApiUtil = require('./util/ApiUtil'),
     SessionStore = require('./stores/session'),
@@ -24,6 +25,9 @@ var React = require('react'),
 var App = React.createClass({
   componentDidMount: function() {
     hashHistory.push("dashboard");
+    ApiUtil.fetchTests();
+    ApiUtil.fetchUserData();
+    ApiUtil.fetchJobsAsClient();
   },
 
   render: function () {
@@ -52,7 +56,9 @@ var routes = (
   </Route>
 );
 
+
 $(document).on('DOMContentLoaded', function() {
+  Modal.setAppElement(document.getElementById('root'));
   ReactDOM.render(<Router history={hashHistory} >{routes}</Router>,
     document.getElementById('root'));
 });

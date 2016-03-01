@@ -28,6 +28,7 @@ Tutor.new({f_name: "Ryan", l_name: "Chong", user_id: 7}).save!
 
 Job.new({client_id: 1, tutor_id: 1, date: ((Time.now) + (60 * 60 * 24 * 2)).to_i, test_id: 5}).save!
 Job.new({client_id: 1, tutor_id: 2, date: ((Time.now) + (60 * 60 * 24 * 4)).to_i, test_id: 23}).save!
+Job.new({client_id: 1, tutor_id: 2, date: ((Time.now) - (60 * 60 * 24 * 4)).to_i, test_id: 23, completed: true}).save!
 Job.new({client_id: 1, tutor_id: 5, date: ((Time.now) + (60 * 60 * 24 * 15)).to_i, test_id: 1}).save!
 Job.new({client_id: 1, date: ((Time.now) + (60 * 60 * 24 * 15)).to_i, test_id: 1}).save!
 

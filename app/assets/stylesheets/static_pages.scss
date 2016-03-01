@@ -311,6 +311,8 @@ label[for] {
   display: inline-block;
   -webkit-flex: 1;
   flex: 1;
+  position: absolute;
+  top: 0;
 }
 
 .job-list-container {
