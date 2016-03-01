@@ -12,11 +12,13 @@ var React = require('react'),
 
     Dashboard = require('./components/dashboard'),
     Navbar = require('./components/navbar'),
+    Footer = require('./components/footer'),
     Account = require('./components/account'),
     AccountInfo = require('./components/account_info'),
     EditAccountInfo = require('./components/edit_account_info'),
     AccountPassword = require('./components/account_password'),
     AccountTransactions = require('./components/account_transactions'),
+    AccountRegisterTutor = require('./components/account_register'),
     AccountDeactivate = require('./components/account_deactivate');
 
 var App = React.createClass({
@@ -30,9 +32,7 @@ var App = React.createClass({
       <div>
         <Navbar />
         {this.props.children}
-        {/*
         <Footer />
-        */}
       </div>
     );
   }
@@ -46,6 +46,7 @@ var routes = (
       <Route path="edit" component={EditAccountInfo}/>
       <Route path="password" component={AccountPassword} />
       <Route path="transactions" component={AccountTransactions} />
+      <Route path="register" component={AccountRegisterTutor} />
       <Route path="deactivate" component={AccountDeactivate} />
     </Route>
   </Route>

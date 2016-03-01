@@ -1,35 +1,50 @@
-<div>
-  <h1>Sign Up</h1>
+<div class="login-page" data-prefetch-url="http://res.cloudinary.com/dz9mezxg3/image/upload/w_1500/v1456774620/studying-1_vbhyfi.jpg">
+  <div class="login-container">
 
-  <%= render "shared/errors" %>
+    <div class="logo-container">
+      <div class="login-logo logo logo-first">Tutor</div>
+      <div class="login-logo logo logo-second">Hound</div>
+    </div>
 
-  <form action="<%= users_url %>" method="post">
-    <%= auth_token %>
+    <div class="error-container">
+      <%= render "shared/errors" %>
+    </div>
 
-    <label for="user[user_name]">User Name:</label>
-    <input type="text" name="user[user_name]" value="<%= @user.user_name %>"><br/>
+    <div class="login-form-container">
+      <form action="<%= users_url %>" method="post">
+        <%= auth_token %>
 
-    <label for="user[password]">Password:</label>
-    <input type="password" name="user[password]" value=""><br/>
+        <label for="user[user_name]">User Name:</label>
+        <input type="text" name="user[user_name]" value="<%= @user.user_name %>"><br/>
 
-    <label for="user[phone_number]">Primary Phone Number:</label>
-    <input type="text" name="user[phone_number]" value=""><br/>
+        <label for="user[password]">Password:</label>
+        <input type="password" name="user[password]" value=""><br/>
 
-    <label for="user[address]">Address:</label>
-    <input type="text" name="user[address]" value=""><br/>
+        <label for="user[phone_number]">Primary Phone Number:</label>
+        <input type="text" name="user[phone_number]" value=""><br/>
 
-    <label for="user[region_id]">City:</label>
-    <select name="user[region_id]">
-      <option value=1>Atlanta</option>
-      <option value=3>New York</option>
-      <option value=2>San Francisco</option>
-      <option value=4>Seattle</option>
-    <select>
-    <br/>
+        <label for="user[address]">Address:</label>
+        <input type="text" name="user[address]" value=""><br/>
 
-    <input type="submit" value="Sign Up">
-  </form>
+        <label for="user[region_id]">City:</label>
+        <select class="dropdown" name="user[region_id]">
+          <% Region.order("name").each do |region| %>
+            <option value=<%= region.id %>><%= region.name %></option>
+          <% end %>
+        <select>
+        <br/>
+        <br/>
 
-  <p>Already signed up? <a href="/session/new">Sign in!</a></p>
-  <p>Just want to browse around? <a href="/users/guest">Log in as guest!</a></p>
+        <input class="dark-blue-button" type="submit" value="Create account">
+      </form>
+    </div>
+
+
+    <div class="secondary-option" >
+      <p>Already signed up? <a class="link" href="/session/new">Sign in!</a></p>
+    </div>
+    <div class="secondary-option" >
+      <p>Just want to browse around? <a class="link" href="/users/guest">Log in as guest!</a></p>
+    </div>
+  </div>
 </div>

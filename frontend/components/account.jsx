@@ -3,11 +3,12 @@ var React = require('react'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory;
 
+var options = ["account", "password", "transactions", "become a Tutor",
+  "deactivate", "log Out"];
+
 var Dashboard = React.createClass({
   getInitialState: function () {
-    return {options: ["account", "password", "transactions",
-      "deactivate", "log Out"], current: ["account"],
-      userData: SessionStore.info()};
+    return {current: ["account"], userData: SessionStore.info()};
   },
 
   _onChange: function () {
@@ -39,6 +40,10 @@ var Dashboard = React.createClass({
         HashHistory.push("/account/transactions");
         this.setState({current: "transactions"});
         break;
+      case "become a Tutor":
+        HashHistory.push("/account/register");
+        this.setState({current: "become a Tutor"});
+        break;
       case "deactivate":
         HashHistory.push("/account/deactivate");
         this.setState({current: "deactivate"});
@@ -57,7 +62,7 @@ var Dashboard = React.createClass({
           <div className="account-management-container group">
             <ul className="account-nav">
               {
-                this.state.options.map(function(option) {
+                options.map(function(option) {
                   var selected = (option === this.state["current"]);
                   if (selected) {
                     var navClass = "account-nav-option-container-selected";

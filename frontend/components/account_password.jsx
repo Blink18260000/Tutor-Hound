@@ -16,6 +16,13 @@ var AccountPassword = React.createClass({
     ApiUtil.fetchUserData();
     ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onChange);
+  },
+
+  _submit: function () {
+
+  },
+
+  _cancel: function () {
 
   },
 
@@ -30,16 +37,23 @@ var AccountPassword = React.createClass({
           <h3 >Change Password</h3>
         </div>
         <div className="account-panel-body">
-          <label htmlFor="old-password">Enter current password:</label>
-          <input id="old-password" name="old-password" type="password" />
+          <label className="account-input-label" htmlFor="old-password">
+            Enter current password:</label>
+          <input id="old-password" className="account-input-input"
+            name="old-password" type="password" />
 
-          <label htmlFor="new-password-1">Enter new password:</label>
-          <input id="new-password-1" name="new-password-1" type="password" />
+          <label className="account-input-label" htmlFor="new-password-1">
+            Enter new password:</label>
+          <input id="new-password-1" className="account-input-input"
+            name="new-password-1" type="password" />
 
-          <label htmlFor="new-password-2">Confirm new password:</label>
-          <input id="new-password-2" name="new-password-2" type="password" />
+          <label className="account-input-label" htmlFor="new-password-2">
+            Confirm new password:</label>
+          <input id="new-password-2" className="account-input-input"
+            name="new-password-2" type="password" />
 
-          <div className="grey-button" onClick={this._cancel}></div>
+          <div className="gray-button" onClick={this._cancel}>Cancel</div>
+          <div className="blue-button" onClick={this._submit}>Submit</div>
         </div>
       </div>
     );

@@ -1,3 +1,84 @@
 // Place all the styles related to the Session controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  min-height: 700px;
+  top: 0;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("http://res.cloudinary.com/dz9mezxg3/image/upload/w_1500/v1456774620/studying-1_vbhyfi.jpg");
+}
+
+.login-logo {
+  height: 30px;
+  font-kerning: -2px;
+  font-size: 40px;
+  position: relative;
+}
+
+.login-container {
+  margin: 2em auto;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 452px;
+  padding: 1.125em 1.5em;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.logo-container {
+  margin: auto;
+  width: 230px;
+}
+
+.error-container {
+  color: #F00;
+  padding: 10px 0;
+}
+
+input {
+  width: 90%;
+}
+
+.dark-blue-button {
+  display: inline-block;
+  background-color: #1da3bf;
+  color: #ffffff;
+  text-align: center;
+  transition: color .16s, background-color .16s;
+  border: 1px solid #1da3bf;
+  border-radius: 4px;
+  vertical-align: middle;
+  padding: .5em 1.38em;
+  font-size: 1.25rem;
+  line-height: 22.4px;
+  width: 85%;
+}
+
+.dark-blue-button:hover {
+  border-color: #0d7488;
+  background-color: #0d7488;
+}
+
+.secondary-option {
+  margin: 10px 0;
+}
+
+.link {
+  color: #1da3bf;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.dropdown {
+  font-size: 1em;
+}

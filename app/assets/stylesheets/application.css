@@ -13,3 +13,55 @@
  *= require_tree .
  *= require_self
  */
+
+ input[type=text] {
+   display: block;
+   padding: 0.625em 1em;
+   vertical-align: middle;
+   color: #828a8b;
+   border: 1px solid #cfd2d3;
+   font-size: 1em;
+   border-radius: 4px;
+   transition-property: border-color, color, box-shadow;
+   transition-duration: .15s;
+ }
+
+ input[type=text]:focus {
+   color: #323a3b;
+   border-color: transparent;
+   box-shadow: inset 0 0 0 2px #46c0d9;
+ }
+
+ input[type=password] {
+   display: block;
+   padding: 0.625em 1em;
+   vertical-align: middle;
+   color: #828a8b;
+   border: 1px solid #cfd2d3;
+   font-size: 1em;
+   border-radius: 4px;
+   transition-property: border-color, color, box-shadow;
+   transition-duration: .15s;
+ }
+
+ input[type=password]:focus {
+   color: #323a3b;
+   border-color: transparent;
+   box-shadow: inset 0 0 0 2px #46c0d9;
+ }
+
+ .logo {
+   display: inline-block;
+   width: wrap;
+   letter-spacing: -2px;
+   font-kerning: -2px;
+   font-weight: bolder;
+ }
+
+ .logo-first {
+   color: #00033d;
+ }
+
+ .logo-second {
+   color: #000ad6;
+ }

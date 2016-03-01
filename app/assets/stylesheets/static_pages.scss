@@ -76,22 +76,14 @@ input[type="submit"] {
 
 .navbar-logo {
   cursor: pointer;
-  display: inline-block;
-  width: wrap;
   height: 30px;
-  letter-spacing: -2px;
-  font-kerning: -2px;
   font-size: 30px;
-  font-weight: bolder;
   position: relative;
   bottom: 6px;
 }
 
 .logo-first {
   color: #00033d;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 20px;
-  overflow: hidden;
 }
 
 .logo-second {
@@ -140,12 +132,15 @@ input[type="submit"] {
 }
 
 .profile-pic {
-  background: #00033d;
+  background-image: url(http://res.cloudinary.com/dz9mezxg3/image/upload/c_fill,g_faces,h_86,w_86/v1456786679/default_avatar_w4weuh.jpg);
   border-radius: 43px;
   height: 86px;
   width: 86px;
   margin: 0 24px 0 0;
   display: inline-block;
+  position: relative;
+  top: 10px;
+  right: 7px;
 }
 
 .salute-container {
@@ -163,6 +158,13 @@ h1 {
   vertical-align: top;
 }
 
+h2 {
+  display: inline-block;
+  font-size: 2rem;
+  margin-bottom: 1em;
+  color: #323a3b;
+}
+
 h3 {
   display: inline-block;
   font-size: 1.75em;
@@ -177,6 +179,10 @@ h3 {
   display: inline-block;
   width: 100%;
   position: relative;
+}
+
+.account-panel-body {
+  margin-bottom: 16px;
 }
 
 .account-management-container {
@@ -230,11 +236,11 @@ h3 {
   position: relative;
   float: right;
   top: 0px;
-  min-height: 100%;
+  min-height: 240px;
   flex-grow: 1;
 }
 
-label {
+.account-input-label {
   display: block;
   width: 100%;
 }
@@ -243,40 +249,22 @@ label[for] {
   cursor: pointer;
 }
 
-input {
+.account-input-input {
   margin-bottom: 1rem;
   position: relative;
   float: left;
-}
-
-input[type=password] {
-  display: block;
   width: 100%;
-  padding: 0.625em 1em;
-  vertical-align: middle;
   min-height: 40px;
-  color: #828a8b;
-  border: 1px solid #cfd2d3;
-  font-size: 1em;
-  border-radius: 4px;
-  transition-property: border-color, color, box-shadow;
-  transition-duration: .15s;
-}
-
-input[type=password]:focus {
-  color: #323a3b;
-  border-color: transparent;
-  box-shadow: inset 0 0 0 2px #46c0d9;
 }
 
 .header-button {
   position: absolute;
+  float: right;
   right: 0;
 }
 
 .blue-button {
   display: inline-block;
-  float: right;
   color: #1da3bf;
   transition: color .16s, background-color .16s;
   border: 1px solid #1da3bf;
@@ -292,8 +280,94 @@ input[type=password]:focus {
   color: #ffffff;
 }
 
+.gray-button {
+  display: inline-block;
+  color: #626a6b;
+  transition: color .16s, background-color .16s;
+  border: 1px solid #969d9e;
+  background-color: transparent;
+  border-radius: 4px;
+  vertical-align: middle;
+  padding: .5em 1.38em;
+  font-size: 1.25rem;
+  line-height: 22.4px;
+  margin-right: 16px;
+}
+
+.gray-button:hover {
+  background-color: #ebecec;
+}
+
 .button-small {
   font-size: 1rem;
+}
+
+.job-search-input {
+  display: inline-block;
+  padding-left: 2.5em
+}
+
+.text-content {
+  display: inline-block;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.job-list-container {
+  margin-top: 56px;
+  margin-bottom: 32px;
+}
+
+.test-list-container {
+  width: 100%;
+  position: relative;
+}
+
+.test-icon-row {
+  position: relative;
+  left: -32px;
+}
+
+.test-icon-block {
+  width: 30%;
+  padding-left: 32px;
+  margin-bottom: 2em;
+  height: 275px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.test-icon-shadow-block {
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.test-icon-image {
+  height: 72%;
+  width: 100%;
+  background-color: #00F;
+}
+
+.test-icon-text {
+  height: 28%;
+  text-align: center;
+  padding: 0.6em;
+  position: relative;
+  bottom: 0;
+  width: 288px;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.test-icon-main-text {
+  display: block;
+  width: 100%;
+}
+
+.test-icon-sub-text {
+  display: block;
+  width: 100%;
 }
 
 .footer {
@@ -302,6 +376,7 @@ input[type=password]:focus {
 }
 
 .footer-container {
-  max-width: 1200px;
-
+  height: 200px;
+  background-color: #b4b9b9;
+  width: 100%;
 }
