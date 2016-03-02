@@ -2,7 +2,7 @@
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
-[heroku]: http://tutorhound.herokuapp.com
+[heroku]: http://www.tutorhound.online
 
 ## Minimum Viable Product
 

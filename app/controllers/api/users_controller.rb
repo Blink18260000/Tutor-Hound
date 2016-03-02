@@ -13,7 +13,9 @@ class Api::UsersController < ApplicationController
 
   def destroy
     @user = current_user
-    @user.destroy!
+    unless @user.id == 1
+      @user.destroy!
+    end
     render nothing: true
   end
 
