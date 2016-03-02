@@ -8,7 +8,15 @@ var React = require('react'),
     LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var customStyles = {
-
+  overlay: {
+    paddingLeft: '50%'
+  },
+  content: {
+    position: 'relative',
+    left: '-200px',
+    // top: '100px',
+    width: '400px'
+  }
 };
 
 var Dashboard = React.createClass({
@@ -16,9 +24,9 @@ var Dashboard = React.createClass({
 
   getInitialState: function () {
     return {options: [], builtIncompleteJobs: [],
-      builtCompleteJobs: [], testData: TestStore.getTestData(),
-      userData: SessionStore.info(), modalIsOpen: false,
-      clientJobs: []};
+      builtCompleteJobs: [], builtAcceptedJobs: [],
+      testData: TestStore.getTestData(), userData: SessionStore.info(),
+      requestModalIsOpen: false, workModalIsOpen: false, clientJobs: []};
   },
 
   _onSessionChange: function () {
@@ -91,6 +99,8 @@ var Dashboard = React.createClass({
     this.listenerToken = SessionStore.addListener(this._onSessionChange);
     this.listenerToken2 = TestStore.addListener(this._onTestChange);
     this.listenerToken3 = ClientJobStore.addListener(this._onClientJobChange);
+    this._onClientJobChange();
+    this._onTestChange();
   },
 
   componentWillUnmount: function () {
@@ -99,8 +109,12 @@ var Dashboard = React.createClass({
     this.listenerToken3.remove();
   },
 
-  openModal: function () {
-    this.setState({modalIsOpen: true});
+  openRequestModal: function () {
+    this.setState({requestModalIsOpen: true});
+  },
+
+  openWorkModal: function () {
+    this.setState({workModalIsOpen: true});
   },
 
   handleNewJob: function (event) {
@@ -112,12 +126,18 @@ var Dashboard = React.createClass({
         date: (Math.floor(testDate.valueOf() / 1000))
       }
     );
-    console.log(this.linkState('test').value);
-    console.log(this.linkState('date').value);
   },
 
-  closeModal: function () {
-    this.setState({modalIsOpen: false});
+  _getMoreWork: function() {
+    this.openWorkModal();
+  },
+
+  closeRequestModal: function () {
+    this.setState({requestModalIsOpen: false});
+  },
+
+  closeWorkModal: function () {
+    this.setState({workModalIsOpen: false});
   },
 
   render: function () {
@@ -130,25 +150,28 @@ var Dashboard = React.createClass({
               <h1>Welcome to TutorHound, {this.state.userData["f_name"] ?
                 this.state.userData["f_name"] :
                 this.state.userData["username"]}!</h1>
-          {/*<input autoComplete="off" className="job-search-input"
+                {/*<input autoComplete="off" className="job-search-input"
                 name="words" placeholder="What do you need help with?"
                 type="text" />*/}
             </div>
             <div className="blue-button" onClick={this.openModal}>
               Request a Tutor</div>
             <Modal
-              isOpen={this.state.modalIsOpen}
-              onRequestClose={this.closeModal}
+              isOpen={this.state.requestModalIsOpen}
+              onRequestClose={this.closeRequestModal}
               style={customStyles} >
-              <h2>Hello</h2>
-              <button onClick={this.closeModal}>close</button>
-              <div>I am a modal</div>
+              <h2>Request a Tutor</h2>
+              <button onClick={this.closeRequestModal} className="modal-close">close</button>
               <form onSubmit={this.handleNewJob}>
-                <select className="dropdown" valueLink={this.linkState('test')}>
+                <label htmlFor="test" >Test to study for:</label>
+                <select className="dropdown" name="test" valueLink={this.linkState('test')}>
                   {this.state.options}
                 </select>
-                <input type="datetime-local" valueLink={this.linkState('date')} />
-                <input type="submit" className="blue-button" value="Request Tutor"/>
+                <div className="spacer" />
+                <label htmlFor="date" >Date to study on:</label>
+                <input type="datetime-local" name="date" valueLink={this.linkState('date')} />
+                <div className="spacer" />
+                <input type="submit" className="blue-button register-button" value="Request Tutor"/>
               </form>
             </Modal>
           </div>
@@ -161,6 +184,23 @@ var Dashboard = React.createClass({
               <h2>Past Jobs</h2>
               {this.state.builtCompleteJobs}
             </div>
+            {
+              this.state.userData.tutor_id ? (
+                <div className="job-list accepted-jobs">
+                  <h2>Accepted Jobs</h2>
+                  {this.state.builtAcceptedJobs}
+                  <div className="blue-button" onClick={this._getMoreWork} >Get More Work</div>
+                  <Modal
+                    isOpen={this.state.workModalIsOpen}
+                    onRequestClose={this.closeWorkModal}
+                    style={customStyles} >
+                    <h2>Get New Tutoring Jobs</h2>
+                    <button onClick={this.closeWorkModal} className="modal-close">close</button>
+
+                  </Modal>
+                </div> ) :
+                <div />
+            }
           </div>
           <div className="test-list-container">
             <h2>Top Tests to Study For</h2>

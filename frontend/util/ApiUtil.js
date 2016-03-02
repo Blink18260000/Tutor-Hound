@@ -57,7 +57,7 @@ var ApiUtil = {
     var that = this;
     $.ajax({
       method: 'DELETE',
-      url: 'api/tutors/' + id.to_s,
+      url: 'api/tutors',
       dataType: 'json',
       success: function(resp) {
         ApiActions.deletedTutor(resp);

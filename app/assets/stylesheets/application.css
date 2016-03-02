@@ -59,9 +59,11 @@
  }
 
  .logo-first {
-   color: #00033d;
+   /*color: #00033d;*/
+   color: #001f3f;
  }
 
  .logo-second {
-   color: #000ad6;
+   /*color: #000ad6;*/
+   color: #0074d9;
  }

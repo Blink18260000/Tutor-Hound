@@ -16,6 +16,10 @@ SessionStore.__onDispatch = function(payload) {
       this.updateTutorData(payload.tutor);
       this.__emitChange();
       break;
+    case ApiConstants.TUTOR_REGISTERED:
+      this.updateTutorData(payload.tutor);
+      this.__emitChange();
+      break;
   }
 };
 

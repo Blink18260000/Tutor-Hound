@@ -12,7 +12,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
     patch '/users/', to: 'users#update'
     put '/users/', to: 'users#update'
-    resources :tutors, only: [:index, :create, :update, :destroy]
+    resources :tutors, only: [:index, :create, :update]
+    delete '/tutors/', to: 'tutors#destroy'
     resources :jobs, only: [:index, :show, :create, :update, :destroy]
     resources :tests, only: [:index]
     resources :regions, only: [:index]

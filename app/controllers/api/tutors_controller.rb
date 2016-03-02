@@ -28,11 +28,9 @@ class Api::TutorsController < ApplicationController
   end
 
   def destroy
-    @tutor = Tutor.find_by_id(params[:id])
-    if @tutor.client_id == current_user.id
-      @tutor.destroy
-    end
-    render :show
+    @tutor = Tutor.find_by(user_id: current_user.id)
+    @tutor.destroy
+    render nothing: true
   end
 
   private
