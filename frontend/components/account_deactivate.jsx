@@ -32,7 +32,7 @@ var AccountDeactivate = React.createClass({
         </div>
         <div className="account-panel-body">
           Once you've deactivated your account, you will no longer be able to
-          log in to the TutorHound site or apps. This action cannot be undone.
+          log in to the TutorHound site. This action cannot be undone.
         </div>
         <div className="blue-button" onClick={this._deactivate}>
           Deactivate Account

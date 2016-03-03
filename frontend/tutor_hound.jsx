@@ -41,17 +41,15 @@ var App = React.createClass({
       ApiUtil.fetchTutor();
       ApiUtil.fetchJobsAsTutor();
       ApiUtil.fetchAvailableJobs();
-      this.listenerToken.remove();
-    } else {
-      this.listenerToken.remove();
     }
+    this.listenerToken.remove();
   },
 
   render: function () {
     window.ApiUtil = ApiUtil;
     window.Moment = Moment;
     return (
-      <div>
+      <div className="container">
         <Navbar />
         {this.props.children}
         <Footer />

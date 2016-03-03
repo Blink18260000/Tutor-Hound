@@ -2,8 +2,13 @@ class Api::JobsController < ApplicationController
   def index
     #get all available jobs for the current user (a tutor)
     if params[:requestType] == "available"
-      @jobs = Job.includes(:tutor, :test).joins(:client).where(
-        "region_id = #{ current_user.region_id } AND tutor_id IS NULL"
+      # @jobs = Job.includes(:tutor, :test, :client).where(
+      #   "region_id = ? AND tutor_id IS NULL AND client_id <> ?",
+      #   current_user.region_id, current_user.id
+      # )
+      @jobs = current_user.available_jobs.joins(:client).where(
+        "region_id = ? AND jobs.tutor_id IS NULL AND client_id <> ?",
+        current_user.region_id, current_user.id
       )
 
     #get all jobs where the current user is listed as the tutor

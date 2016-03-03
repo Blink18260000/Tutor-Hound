@@ -10,3 +10,4 @@ end
 json.date job.date
 json.test job.test.name
 json.completed job.completed
+json.client job.client.user_name

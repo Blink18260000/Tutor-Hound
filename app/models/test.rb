@@ -6,4 +6,6 @@ class Test < ActiveRecord::Base
   has_many :tutors,
     through: :quals,
     source: :tutor
+
+  has_many :jobs
 end

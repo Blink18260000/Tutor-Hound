@@ -4,4 +4,7 @@ class Qual < ActiveRecord::Base
 
   belongs_to :tutor,
     dependent: :destroy
+
+  belongs_to :test,
+    dependent: :destroy
 end

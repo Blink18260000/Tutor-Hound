@@ -44,34 +44,32 @@ var Dashboard = React.createClass({
 
   render: function () {
     return (
-      <div className="container">
-        <div className="content-container">
-          <h1>Your Account</h1>
-          <div className="account-management-container group">
-            <ul className="account-nav">
-              {
-                options.map(function(option) {
-                  var selected = (option === this.state["current"]);
-                  if (selected) {
-                    var navClass = "account-nav-option-container-selected";
-                    var click = function() {};
-                  } else {
-                    navClass = "account-nav-option-container";
-                    click = this._handleClick.bind(this, option);
-                  }
-                  return (
-                    <li className={navClass} key={option}
-                      onClick={click}>
-                      <span className="account-nav-option">
-                        {option[0].toUpperCase().concat(option.slice(1))}
-                      </span>
-                    </li>
-                  );
-                }, this)
-              }
-            </ul>
-            {this.props.children}
-          </div>
+      <div className="content-container">
+        <h1>Your Account</h1>
+        <div className="account-management-container group">
+          <ul className="account-nav">
+            {
+              options.map(function(option) {
+                var selected = (option === this.state["current"]);
+                if (selected) {
+                  var navClass = "account-nav-option-container-selected";
+                  var click = function() {};
+                } else {
+                  navClass = "account-nav-option-container";
+                  click = this._handleClick.bind(this, option);
+                }
+                return (
+                  <li className={navClass} key={option}
+                    onClick={click}>
+                    <span className="account-nav-option">
+                      {option[0].toUpperCase().concat(option.slice(1))}
+                    </span>
+                  </li>
+                );
+              }, this)
+            }
+          </ul>
+          {this.props.children}
         </div>
       </div>
     );

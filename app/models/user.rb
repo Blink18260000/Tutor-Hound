@@ -11,6 +11,18 @@ class User < ActiveRecord::Base
 
   has_one :tutor
 
+  has_many :quals,
+    through: :tutor,
+    source: :quals
+
+  has_many :tests,
+    through: :quals,
+    source: :test
+
+  has_many :available_jobs,
+    through: :tests,
+    source: :jobs
+
   has_many :jobs,
     foreign_key: :client_id
 
