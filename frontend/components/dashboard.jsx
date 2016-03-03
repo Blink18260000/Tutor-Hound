@@ -106,6 +106,7 @@ var Dashboard = React.createClass({
     this.listenerToken3 = ClientJobStore.addListener(this._onClientJobChange);
     this._onClientJobChange();
     this._onTestChange();
+    window.ls = this.linkState('test');
   },
 
   componentWillUnmount: function () {
@@ -116,6 +117,11 @@ var Dashboard = React.createClass({
 
   openRequestModal: function () {
     this.setState({requestModalIsOpen: true});
+  },
+
+  openRequestModalWithTest: function (test) {
+    this.setState({test: test});
+    this.openRequestModal();
   },
 
   openWorkModal: function () {
@@ -232,7 +238,7 @@ var Dashboard = React.createClass({
             <h2>Top Tests to Study For</h2>
             <div className="test-icon-container">
               <div className="test-icon-row">
-                <div className="test-icon-block">
+                <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,1)}>
                   <div className="test-icon-shadow-block">
                     <div className="test-icon-image tib-sat" />
                     <div className="test-icon-text">
@@ -242,7 +248,7 @@ var Dashboard = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="test-icon-block">
+                <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,23)}>
                   <div className="test-icon-shadow-block">
                     <div className="test-icon-image tib-act" />
                     <div className="test-icon-text">
@@ -252,31 +258,31 @@ var Dashboard = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="test-icon-block">
+                <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,9)}>
                   <div className="test-icon-shadow-block">
-                    <div className="test-icon-image tib-sat2math" />
+                    <div className="test-icon-image tib-sat2ush" />
                     <div className="test-icon-text">
                       <span className="test-icon-main-text" >
-                        SAT 2: Math 2</span>
+                        SAT 2: U.S. History</span>
                       <span className="test-icon-sub-text" >
-                        Skip freshman math!</span>
+                        Everything from pre-revolution to the modern day.</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="test-icon-row">
-                <div className="test-icon-block">
+                <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,10)}>
                   <div className="test-icon-shadow-block">
-                    <div className="test-icon-image tib-sat2chem" />
+                    <div className="test-icon-image tib-sat2wh" />
                     <div className="test-icon-text">
                       <span className="test-icon-main-text" >
-                        SAT 2: Chemistry</span>
+                        SAT 2: World History</span>
                       <span className="test-icon-sub-text" >
-                        An easy way to get lab credit.</span>
+                        A thorough test of knowledge of international events and history.</span>
                     </div>
                   </div>
                 </div>
-                <div className="test-icon-block">
+                <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,11)}>
                   <div className="test-icon-shadow-block">
                     <div className="test-icon-image tib-sat2span" />
                     <div className="test-icon-text">
@@ -287,7 +293,7 @@ var Dashboard = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="test-icon-block">
+                <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,5)}>
                   <div className="test-icon-shadow-block">
                     <div className="test-icon-image tib-sat2phys" />
                     <div className="test-icon-text">
