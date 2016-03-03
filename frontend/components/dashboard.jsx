@@ -29,7 +29,7 @@ var Dashboard = React.createClass({
       builtCompleteJobs: [], builtAcceptedJobs: [],
       testData: TestStore.getTestData(), userData: SessionStore.info(),
       requestModalIsOpen: false, workModalIsOpen: false, clientJobs: [],
-      appointmentDate: Moment().startOf('day')};
+      appointmentDate: Moment().startOf('day').add(1, 'day')};
   },
 
   _onSessionChange: function () {

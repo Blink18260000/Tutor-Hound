@@ -2,17 +2,17 @@ class Api::JobsController < ApplicationController
   def index
     #get all available jobs for the current user (a tutor)
     if params[:requestType] == "available"
-      @jobs = Job.joins(:client).where(
+      @jobs = Job.includes(:tutor, :test).joins(:client).where(
         "region_id = #{ current_user.region_id } AND tutor_id IS NULL"
       )
 
     #get all jobs where the current user is listed as the tutor
     elsif params[:requestType] == "tutor"
-      @jobs = Job.where(tutor_id: current_user.id)
+      @jobs = Job.includes(:tutor, :test).where(tutor_id: current_user.id)
 
     #get all jobs where the current user is listed as the client
     else
-      @jobs = Job.where(client_id: current_user.id)
+      @jobs = Job.includes(:tutor, :test).where(client_id: current_user.id)
     end
 
     #If the result is exactly one job, arrayify it so the json renders properly

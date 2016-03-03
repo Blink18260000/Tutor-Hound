@@ -37,7 +37,7 @@ var AccountInfo = React.createClass({
         </div>
         <div className="account-panel-body">
           {this.state.userData.tutor_id ?
-            <span>You are already registered as a tutor!</span>
+            <span>You are registered as a tutor!</span>
             :
             <form onSubmit={this._register}>
               <label htmlFor="f_name">First Name:</label>

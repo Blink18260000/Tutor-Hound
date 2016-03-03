@@ -16,6 +16,9 @@ TutorJobStore.__onDispatch = function(payload) {
       this.addJob(payload.job);
       this.__emitChange();
       break;
+    case ApiConstants.JOB_RECEIVED:
+
+      break;
   }
 };
 

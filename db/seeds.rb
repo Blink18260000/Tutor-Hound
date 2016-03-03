@@ -20,6 +20,7 @@ User.new({user_name: "SKunche", password: "starwars", region_id: 2, address: "16
 User.new({user_name: "VBudrovich", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8991184520"}).save!
 User.new({user_name: "WLiang", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8335226547"}).save!
 
+Tutor.new({f_name: "Matt", l_name: "Rice", user_id: 1}).save!
 Tutor.new({f_name: "Eric", l_name: "Liu", user_id: 2}).save!
 Tutor.new({f_name: "Laurie", l_name: "Ou", user_id: 4}).save!
 Tutor.new({f_name: "Sam", l_name: "Gerber", user_id: 8}).save!
