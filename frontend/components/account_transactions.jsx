@@ -1,6 +1,5 @@
 var React = require('react'),
     SessionStore = require('../stores/session'),
-    ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory;
 
 var AccountTransactions = React.createClass({
@@ -13,10 +12,7 @@ var AccountTransactions = React.createClass({
   },
 
   componentDidMount: function () {
-    ApiUtil.fetchUserData();
-    ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onChange);
-
   },
 
   componentWillUnmount: function () {

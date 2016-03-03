@@ -28,6 +28,7 @@ SessionStore.updateUserData = function(user) {
   _userData["phone_number"] = user.phone_number;
   _userData["region_id"] = user.region_id;
   _userData["username"] = user.username;
+  _userData["tutor_id"] = user.tutor_id;
 };
 
 SessionStore.updateTutorData = function(tutor) {

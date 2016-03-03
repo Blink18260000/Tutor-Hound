@@ -4,11 +4,11 @@ var Dispatcher = require('../dispatcher'),
 
 var _jobList = [];
 
-var ClientJobStore = new Store(Dispatcher);
+var AvailableJobStore = new Store(Dispatcher);
 
-ClientJobStore.__onDispatch = function(payload) {
+AvailableJobStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
-    case ApiConstants.CLIENT_JOBS_RECEIVED:
+    case ApiConstants.AVAILABLE_JOBS_RECEIVED:
       this.setJobList(payload.jobs);
       this.__emitChange();
       break;
@@ -19,23 +19,18 @@ ClientJobStore.__onDispatch = function(payload) {
   }
 };
 
-ClientJobStore.setJobList = function(jobs) {
+AvailableJobStore.setJobList = function(jobs) {
   _jobList = jobs;
-  console.log(_jobList);
 };
 
-ClientJobStore.getJobList = function() {
+AvailableJobStore.getJobList = function() {
   return _jobList.slice(0);
 };
 
-ClientJobStore.addJob = function(job) {
+AvailableJobStore.addJob = function(job) {
   job["completed"] = false;
   job["tutor_id"] = null;
   _jobList.push(job);
 };
 
-ClientJobStore.editJob = function() {
-
-};
-
-module.exports = ClientJobStore;
+module.exports = AvailableJobStore;

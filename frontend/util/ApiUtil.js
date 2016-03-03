@@ -144,6 +144,18 @@ var ApiUtil = {
     });
   },
 
+  registerAsTutor: function(jobId) {
+    var that = this;
+    $.ajax({
+      method: 'PATCH',
+      url: 'api/jobs/' + jobId,
+      dataType: 'json',
+      success: function(resp) {
+        ApiActions.jobReceived(resp);
+      }
+    });
+  },
+
   deleteJob: function(jobId) {
     var that = this;
     $.ajax({

@@ -31,6 +31,12 @@ Job.new({client_id: 1, tutor_id: 2, date: ((Time.now) + (60 * 60 * 24 * 4)).to_i
 Job.new({client_id: 1, tutor_id: 2, date: ((Time.now) - (60 * 60 * 24 * 4)).to_i, test_id: 23, completed: true}).save!
 Job.new({client_id: 1, tutor_id: 5, date: ((Time.now) + (60 * 60 * 24 * 15)).to_i, test_id: 1}).save!
 Job.new({client_id: 1, date: ((Time.now) + (60 * 60 * 24 * 15)).to_i, test_id: 1}).save!
+Job.new({client_id: 2, date: ((Time.now) + (60 * 60 * 24 * 2) + (60 * 60 * 10)).to_i, test_id: 23}).save!
+Job.new({client_id: 3, date: ((Time.now) + (60 * 60 * 24 * 4) + (60 * 60 * 10)).to_i, test_id: 1}).save!
+Job.new({client_id: 4, date: ((Time.now) + (60 * 60 * 24 * 2) + (60 * 60 * 10)).to_i, test_id: 23}).save!
+Job.new({client_id: 5, date: ((Time.now) + (60 * 60 * 24 * 6) + (60 * 60 * 10)).to_i, test_id: 1}).save!
+Job.new({client_id: 6, date: ((Time.now) + (60 * 60 * 24 * 3) + (60 * 60 * 10)).to_i, test_id: 1}).save!
+Job.new({client_id: 7, date: ((Time.now) + (60 * 60 * 24 * 5) + (60 * 60 * 10)).to_i, test_id: 5}).save!
 
 Qual.new({tutor_id: 1, test_id: 1}).save!
 Qual.new({tutor_id: 1, test_id: 2}).save!

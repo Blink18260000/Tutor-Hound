@@ -7,6 +7,7 @@ var React = require('react'),
     IndexRoute = ReactRouter.IndexRoute,
     root = document.getElementById('root'),
     Modal = require('react-modal'),
+    Moment = require('moment'),
 
     ApiUtil = require('./util/ApiUtil'),
     SessionStore = require('./stores/session'),
@@ -28,10 +29,27 @@ var App = React.createClass({
     ApiUtil.fetchTests();
     ApiUtil.fetchUserData();
     ApiUtil.fetchJobsAsClient();
+    this.listenerToken = SessionStore.addListener(this._onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.listenerToken.remove();
+  },
+
+  _onChange: function () {
+    if (SessionStore.info().tutor_id) {
+      ApiUtil.fetchTutor();
+      ApiUtil.fetchJobsAsTutor();
+      ApiUtil.fetchAvailableJobs();
+      this.listenerToken.remove();
+    } else {
+      this.listenerToken.remove();
+    }
   },
 
   render: function () {
     window.ApiUtil = ApiUtil;
+    window.Moment = Moment;
     return (
       <div>
         <Navbar />
@@ -58,7 +76,9 @@ var routes = (
 
 
 $(document).on('DOMContentLoaded', function() {
-  Modal.setAppElement(document.getElementById('root'));
-  ReactDOM.render(<Router history={hashHistory} >{routes}</Router>,
-    document.getElementById('root'));
+  if (document.getElementById('root')) {
+    Modal.setAppElement(document.getElementById('root'));
+    ReactDOM.render(<Router history={hashHistory} >{routes}</Router>,
+      document.getElementById('root'));
+  }
 });

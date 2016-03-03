@@ -13,8 +13,6 @@ var AccountPassword = React.createClass({
   },
 
   componentDidMount: function () {
-    ApiUtil.fetchUserData();
-    ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onChange);
   },
 

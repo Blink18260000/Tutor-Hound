@@ -1,5 +1,4 @@
 var React = require('react'),
-    SessionStore = require('../stores/session'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory;
 
@@ -8,22 +7,11 @@ var options = ["account", "password", "transactions", "become a Tutor",
 
 var Dashboard = React.createClass({
   getInitialState: function () {
-    return {current: ["account"], userData: SessionStore.info()};
-  },
-
-  _onChange: function () {
-    this.setState({userData: SessionStore.info()});
+    return {current: ["account"]};
   },
 
   componentDidMount: function () {
-    ApiUtil.fetchUserData();
-    ApiUtil.fetchTutor();
-    this.listenerToken = SessionStore.addListener(this._onChange);
     this.state["current"] = "account";
-  },
-
-  componentWillUnmount: function () {
-    this.listenerToken.remove();
   },
 
   _handleClick: function(option) {

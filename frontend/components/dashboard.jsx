@@ -5,6 +5,8 @@ var React = require('react'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory,
     Modal = require('react-modal'),
+    Moment = require('moment'),
+    DatePicker = require('react-datepicker'),
     LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var customStyles = {
@@ -13,9 +15,9 @@ var customStyles = {
   },
   content: {
     position: 'relative',
-    left: '-200px',
+    left: '-250px',
     // top: '100px',
-    width: '400px'
+    width: '500px'
   }
 };
 
@@ -26,7 +28,8 @@ var Dashboard = React.createClass({
     return {options: [], builtIncompleteJobs: [],
       builtCompleteJobs: [], builtAcceptedJobs: [],
       testData: TestStore.getTestData(), userData: SessionStore.info(),
-      requestModalIsOpen: false, workModalIsOpen: false, clientJobs: []};
+      requestModalIsOpen: false, workModalIsOpen: false, clientJobs: [],
+      appointmentDate: Moment().startOf('day')};
   },
 
   _onSessionChange: function () {
@@ -42,6 +45,10 @@ var Dashboard = React.createClass({
       );
     }
     this.setState({testData: testData});
+  },
+
+  _setValidTime: function() {
+
   },
 
   _parseDate: function(unixDate) {
@@ -94,8 +101,6 @@ var Dashboard = React.createClass({
   },
 
   componentDidMount: function () {
-    ApiUtil.fetchUserData();
-    ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onSessionChange);
     this.listenerToken2 = TestStore.addListener(this._onTestChange);
     this.listenerToken3 = ClientJobStore.addListener(this._onClientJobChange);
@@ -117,15 +122,20 @@ var Dashboard = React.createClass({
     this.setState({workModalIsOpen: true});
   },
 
+  handleDateChange: function (date) {
+    this.setState({appointmentDate: date});
+  },
+
   handleNewJob: function (event) {
     event.preventDefault();
-    var testDate = new Date();
+    console.log(this.state.appointmentDate.unix());
     ApiUtil.createJob(
       {
         test_id: this.linkState('test').value,
-        date: (Math.floor(testDate.valueOf() / 1000))
+        date: this.state.appointmentDate.unix()
       }
     );
+    this.closeRequestModal();
   },
 
   _getMoreWork: function() {
@@ -154,7 +164,7 @@ var Dashboard = React.createClass({
                 name="words" placeholder="What do you need help with?"
                 type="text" />*/}
             </div>
-            <div className="blue-button" onClick={this.openModal}>
+            <div className="blue-button" onClick={this.openRequestModal}>
               Request a Tutor</div>
             <Modal
               isOpen={this.state.requestModalIsOpen}
@@ -164,12 +174,20 @@ var Dashboard = React.createClass({
               <button onClick={this.closeRequestModal} className="modal-close">close</button>
               <form onSubmit={this.handleNewJob}>
                 <label htmlFor="test" >Test to study for:</label>
-                <select className="dropdown" name="test" valueLink={this.linkState('test')}>
+                <select className="dropdown" name="test" valueLink={this.linkState('test')} required={true} >
+                  <option value="" key={-1} />
                   {this.state.options}
                 </select>
                 <div className="spacer" />
                 <label htmlFor="date" >Date to study on:</label>
-                <input type="datetime-local" name="date" valueLink={this.linkState('date')} />
+                <DatePicker
+                  selected={this.state.appointmentDate}
+                  onChange={this.handleDateChange}
+                  minDate={Moment().add(1, 'days')}
+                  maxDate={Moment().add(90, 'days')}
+                  popoverAttachment='middle left'
+                  popoverTargetAttachment='middle right'
+                  name="date"/>
                 <div className="spacer" />
                 <input type="submit" className="blue-button register-button" value="Request Tutor"/>
               </form>
@@ -188,7 +206,15 @@ var Dashboard = React.createClass({
               this.state.userData.tutor_id ? (
                 <div className="job-list accepted-jobs">
                   <h2>Accepted Jobs</h2>
-                  {this.state.builtAcceptedJobs}
+                  <div className="spacer" />
+                  {
+                    this.state.builtAcceptedJobs.length > 0 ?
+                      this.state.builtAcceptedJobs :
+                      <div className="notification">
+                        You have no upcoming jobs. Click the button to find new work!
+                      </div>
+                  }
+                  <div className="spacer" />
                   <div className="blue-button" onClick={this._getMoreWork} >Get More Work</div>
                   <Modal
                     isOpen={this.state.workModalIsOpen}

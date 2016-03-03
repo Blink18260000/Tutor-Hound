@@ -16,12 +16,11 @@ var AccountInfo = React.createClass({
   },
 
   componentDidMount: function () {
-    ApiUtil.fetchUserData();
-    ApiUtil.fetchTutor();
     this.listenerToken = SessionStore.addListener(this._onChange);
   },
 
-  _register: function () {
+  _register: function (e) {
+    e.preventDefault();
     ApiUtil.registerTutor(this.linkState('f_name').value,
                           this.linkState('l_name').value);
   },
