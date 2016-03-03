@@ -9,6 +9,7 @@ var React = require('react'),
     Modal = require('react-modal'),
     Moment = require('moment'),
     DatePicker = require('react-datepicker'),
+    TestBlockContainer = require('./test_block_container'),
     LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var customStyles = {
@@ -32,6 +33,25 @@ var Dashboard = React.createClass({
       userData: SessionStore.info(), requestModalIsOpen: false,
       workModalIsOpen: false, clientJobs: [],
       appointmentDate: Moment().startOf('day').add(1, 'day')};
+  },
+
+  componentDidMount: function () {
+    this.listenerToken = SessionStore.addListener(this._onSessionChange);
+    this.listenerToken2 = TestStore.addListener(this._onTestChange);
+    this.listenerToken3 = ClientJobStore.addListener(this._onClientJobChange);
+    this.listenerToken4 = AvailableJobStore.addListener(this._onAvailableJobChange);
+    this.listenerToken5 = AcceptedJobStore.addListener(this._onAcceptedJobChange);
+    this._onClientJobChange();
+    this._onTestChange();
+    this._generateTimes();
+  },
+
+  componentWillUnmount: function () {
+    this.listenerToken.remove();
+    this.listenerToken2.remove();
+    this.listenerToken3.remove();
+    this.listenerToken4.remove();
+    this.listenerToken5.remove();
   },
 
   _onSessionChange: function () {
@@ -62,10 +82,6 @@ var Dashboard = React.createClass({
         </option>
       );
     }
-  },
-
-  _setValidTime: function () {
-
   },
 
   _parseDate: function (unixDate) {
@@ -117,28 +133,6 @@ var Dashboard = React.createClass({
     this.setState({clientJobs: clientJobs});
   },
 
-  _onAvailableJobChange: function () {
-    this.state.builtAvailableJobs = [];
-    var availableJobs = AvailableJobStore.getJobList();
-    for (var i = 0; i < availableJobs.length; i++) {
-      var job = availableJobs[i];
-      this.state.builtAvailableJobs.push(
-        <div key={i} className="job-container">
-          <div className="job-text-field">
-            Test: {job.test}
-          </div>
-          <div className="job-text-field">
-            Date: {this._parseDate(job.date)}
-          </div>
-          <div className="job-text-field">
-            Client: {job.client}
-          </div>
-        </div>
-      );
-    }
-    this.setState({availableJobs: availableJobs});
-  },
-
   _onAcceptedJobChange: function () {
     this.state.builtAcceptedJobs = [];
     var acceptedJobs = AcceptedJobStore.getJobList();
@@ -161,25 +155,6 @@ var Dashboard = React.createClass({
     this.setState({acceptedJobs: acceptedJobs});
   },
 
-  componentDidMount: function () {
-    this.listenerToken = SessionStore.addListener(this._onSessionChange);
-    this.listenerToken2 = TestStore.addListener(this._onTestChange);
-    this.listenerToken3 = ClientJobStore.addListener(this._onClientJobChange);
-    this.listenerToken4 = AvailableJobStore.addListener(this._onAvailableJobChange);
-    this.listenerToken5 = AcceptedJobStore.addListener(this._onAcceptedJobChange);
-    this._onClientJobChange();
-    this._onTestChange();
-    this._generateTimes();
-  },
-
-  componentWillUnmount: function () {
-    this.listenerToken.remove();
-    this.listenerToken2.remove();
-    this.listenerToken3.remove();
-    this.listenerToken4.remove();
-    this.listenerToken5.remove();
-  },
-
   openRequestModal: function () {
     this.setState({requestModalIsOpen: true});
   },
@@ -189,9 +164,6 @@ var Dashboard = React.createClass({
     this.openRequestModal();
   },
 
-  openWorkModal: function () {
-    this.setState({workModalIsOpen: true});
-  },
 
   handleDateChange: function (date) {
     this.setState({appointmentDate: date});
@@ -210,12 +182,38 @@ var Dashboard = React.createClass({
     this.closeRequestModal();
   },
 
-  _getMoreWork: function () {
-    this.openWorkModal();
-  },
-
   closeRequestModal: function () {
     this.setState({requestModalIsOpen: false});
+  },
+
+  openWorkModal: function () {
+    this.setState({workModalIsOpen: true});
+  },
+
+  _onAvailableJobChange: function () {
+    this.state.builtAvailableJobs = [];
+    var availableJobs = AvailableJobStore.getJobList();
+    for (var i = 0; i < availableJobs.length; i++) {
+      var job = availableJobs[i];
+      this.state.builtAvailableJobs.push(
+        <div key={i} className="job-container">
+          <div className="job-text-field">
+            Test: {job.test}
+          </div>
+          <div className="job-text-field">
+            Date: {this._parseDate(job.date)}
+          </div>
+          <div className="job-text-field">
+            Client: {job.client}
+          </div>
+        </div>
+      );
+    }
+    this.setState({availableJobs: availableJobs});
+  },
+
+  _getMoreWork: function () {
+    this.openWorkModal();
   },
 
   closeWorkModal: function () {
@@ -231,44 +229,9 @@ var Dashboard = React.createClass({
             <h1>Welcome to TutorHound, {this.state.userData["f_name"] ?
               this.state.userData["f_name"] :
               this.state.userData["username"]}!</h1>
-              {/*<input autoComplete="off" className="job-search-input"
-              name="words" placeholder="What do you need help with?"
-              type="text" />*/}
           </div>
           <div className="blue-button" onClick={this.openRequestModal}>
             Request a Tutor</div>
-          <Modal
-            isOpen={this.state.requestModalIsOpen}
-            onRequestClose={this.closeRequestModal}
-            style={customStyles} >
-            <h2>Request a Tutor</h2>
-            <button onClick={this.closeRequestModal} className="modal-close">close</button>
-            <form onSubmit={this.handleNewJob}>
-              <label htmlFor="test" >Test to study for:</label>
-              <select className="dropdown" name="test" valueLink={this.linkState('test')} required={true} >
-                <option value="" key={-1} />
-                {this.state.testOptions}
-              </select>
-              <div className="spacer" />
-              <label htmlFor="date" >Date to study on:</label>
-              <DatePicker
-                selected={this.state.appointmentDate}
-                onChange={this.handleDateChange}
-                minDate={Moment().add(1, 'days')}
-                maxDate={Moment().add(90, 'days')}
-                popoverAttachment='middle left'
-                popoverTargetAttachment='middle right'
-                name="date"/>
-              <div className="spacer" />
-              <label htmlFor="time" >Time to study at:</label>
-              <select className="dropdown" name="time" valueLink={this.linkState('time')} required={true} >
-                <option value="" key={-1} />
-                {this.state.timeOptions}
-              </select>
-              <div className="spacer" />
-              <input type="submit" className="blue-button register-button" value="Request Tutor"/>
-            </form>
-          </Modal>
         </div>
         <div className="job-list-container">
           <div className="job-list incomplete-jobs">
@@ -293,97 +256,61 @@ var Dashboard = React.createClass({
                 }
                 <div className="spacer" />
                 <div className="blue-button" onClick={this._getMoreWork} >Get More Work</div>
-                <Modal
-                  isOpen={this.state.workModalIsOpen}
-                  onRequestClose={this.closeWorkModal}
-                  style={customStyles} >
-                  <h2>Get New Tutoring Jobs</h2>
-                  <button onClick={this.closeWorkModal} className="modal-close">close</button>
-                  {
-                    this.state.builtAvailableJobs.length > 0 ?
-                      this.state.builtAvailableJobs :
-                      <div className="notification">
-                        You are not qualified for any requests in your region. Please check back later.
-                      </div>
-                  }
-                </Modal>
               </div> ) :
               <div />
           }
         </div>
-        <div className="test-list-container">
-          <h2>Top Tests to Study For</h2>
-          <div className="test-icon-container">
-            <div className="test-icon-row">
-              <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,1)}>
-                <div className="test-icon-shadow-block">
-                  <div className="test-icon-image tib-sat" />
-                  <div className="test-icon-text">
-                    <span className="test-icon-main-text" >SAT</span>
-                    <span className="test-icon-sub-text" >
-                      The most accepted standardized test.</span>
-                  </div>
-                </div>
+
+        <TestBlockContainer callback={this.openRequestModalWithTest} />
+
+        <Modal
+          isOpen={this.state.requestModalIsOpen}
+          onRequestClose={this.closeRequestModal}
+          style={customStyles} >
+          <h2>Request a Tutor</h2>
+          <button onClick={this.closeRequestModal} className="modal-close">close</button>
+          <form onSubmit={this.handleNewJob}>
+            <label htmlFor="test" >Test to study for:</label>
+            <select className="dropdown" name="test" valueLink={this.linkState('test')} required={true} >
+              <option value="" key={-1} />
+              {this.state.testOptions}
+            </select>
+            <div className="spacer" />
+            <label htmlFor="date" >Date to study on:</label>
+            <DatePicker
+              selected={this.state.appointmentDate}
+              onChange={this.handleDateChange}
+              minDate={Moment().add(1, 'days')}
+              maxDate={Moment().add(90, 'days')}
+              popoverAttachment='middle left'
+              popoverTargetAttachment='middle right'
+              name="date"/>
+            <div className="spacer" />
+            <label htmlFor="time" >Time to study at:</label>
+            <select className="dropdown" name="time" valueLink={this.linkState('time')} required={true} >
+              <option value="" key={-1} />
+              {this.state.timeOptions}
+            </select>
+            <div className="spacer" />
+            <input type="submit" className="blue-button register-button" value="Request Tutor"/>
+          </form>
+        </Modal>
+
+        <Modal
+          isOpen={this.state.workModalIsOpen}
+          onRequestClose={this.closeWorkModal}
+          style={customStyles} >
+          <h2>Get New Tutoring Jobs</h2>
+          <button onClick={this.closeWorkModal} className="modal-close">close</button>
+          {
+            this.state.builtAvailableJobs.length > 0 ?
+              this.state.builtAvailableJobs :
+              <div className="notification">
+                You are not qualified for any requests in your region. Please check back later.
               </div>
-              <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,23)}>
-                <div className="test-icon-shadow-block">
-                  <div className="test-icon-image tib-act" />
-                  <div className="test-icon-text">
-                    <span className="test-icon-main-text" >ACT</span>
-                    <span className="test-icon-sub-text" >
-                      The most accepted SAT alternative.</span>
-                  </div>
-                </div>
-              </div>
-              <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,9)}>
-                <div className="test-icon-shadow-block">
-                  <div className="test-icon-image tib-sat2ush" />
-                  <div className="test-icon-text">
-                    <span className="test-icon-main-text" >
-                      SAT 2: U.S. History</span>
-                    <span className="test-icon-sub-text" >
-                      Everything from pre-revolution to the modern day.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="test-icon-row">
-              <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,10)}>
-                <div className="test-icon-shadow-block">
-                  <div className="test-icon-image tib-sat2wh" />
-                  <div className="test-icon-text">
-                    <span className="test-icon-main-text" >
-                      SAT 2: World History</span>
-                    <span className="test-icon-sub-text" >
-                      A thorough test of knowledge of international events and history.</span>
-                  </div>
-                </div>
-              </div>
-              <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,11)}>
-                <div className="test-icon-shadow-block">
-                  <div className="test-icon-image tib-sat2span" />
-                  <div className="test-icon-text">
-                    <span className="test-icon-main-text" >
-                      SAT 2: Spanish</span>
-                    <span className="test-icon-sub-text" >
-                      Get your language credit before college starts.</span>
-                  </div>
-                </div>
-              </div>
-              <div className="test-icon-block" onClick={this.openRequestModalWithTest.bind(this,5)}>
-                <div className="test-icon-shadow-block">
-                  <div className="test-icon-image tib-sat2phys" />
-                  <div className="test-icon-text">
-                    <span className="test-icon-main-text" >
-                      SAT 2: Physics</span>
-                    <span className="test-icon-sub-text" >
-                      The most popular subject test.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          }
+        </Modal>
+
       </div>
     );
   }
