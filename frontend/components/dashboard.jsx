@@ -202,40 +202,6 @@ var Dashboard = React.createClass({
     this.setState({requestModalIsOpen: false});
   },
 
-  openWorkModal: function () {
-    this.setState({workModalIsOpen: true});
-  },
-
-  _onAvailableJobChange: function () {
-    this.state.builtAvailableJobs = [];
-    var availableJobs = AvailableJobStore.getJobList();
-    for (var i = 0; i < availableJobs.length; i++) {
-      var job = availableJobs[i];
-      this.state.builtAvailableJobs.push(
-        <div key={i} className="job-container">
-          <div className="job-text-field">
-            Test: {job.test}
-          </div>
-          <div className="job-text-field">
-            Date: {this._parseDate(job.date)}
-          </div>
-          <div className="job-text-field">
-            Client: {job.client}
-          </div>
-        </div>
-      );
-    }
-    this.setState({availableJobs: availableJobs});
-  },
-
-  _getMoreWork: function () {
-    this.openWorkModal();
-  },
-
-  closeWorkModal: function () {
-    this.setState({workModalIsOpen: false});
-  },
-
   render: function () {
     return (
       <div className="content-container">
@@ -289,23 +255,6 @@ var Dashboard = React.createClass({
             <input type="submit" className="blue-button register-button"
               value="Request Tutor"/>
           </form>
-        </Modal>
-
-        <Modal
-          isOpen={this.state.workModalIsOpen}
-          onRequestClose={this.closeWorkModal}
-          style={customStyles} >
-          <h2>Get New Tutoring Jobs</h2>
-          <button onClick={this.closeWorkModal}
-            className="modal-close">close</button>
-          {
-            this.state.builtAvailableJobs.length > 0 ?
-              this.state.builtAvailableJobs :
-              <div className="notification">
-                You are not qualified for any requests in your region.
-                Please check back later.
-              </div>
-          }
         </Modal>
 
       </div>

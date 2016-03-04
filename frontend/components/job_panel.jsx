@@ -1,19 +1,30 @@
 var React = require('react'),
-SessionStore = require('../stores/session'),
-TestStore = require('../stores/test'),
-ClientJobStore = require('../stores/clientJobs'),
-AcceptedJobStore = require('../stores/tutorJobs'),
-AvailableJobStore = require('../stores/availableJobs'),
-ApiUtil = require('../util/ApiUtil'),
-HashHistory = require('react-router').hashHistory,
-Modal = require('react-modal'),
-Moment = require('moment'),
-DatePicker = require('react-datepicker'),
-TestBlockContainer = require('./test_block_container'),
-LinkedStateMixin = require('react-addons-linked-state-mixin');
+    SessionStore = require('../stores/session'),
+    TestStore = require('../stores/test'),
+    ClientJobStore = require('../stores/clientJobs'),
+    AcceptedJobStore = require('../stores/tutorJobs'),
+    AvailableJobStore = require('../stores/availableJobs'),
+    ApiUtil = require('../util/ApiUtil'),
+    HashHistory = require('react-router').hashHistory,
+    Modal = require('react-modal'),
+    Moment = require('moment'),
+    DatePicker = require('react-datepicker'),
+    TestBlockContainer = require('./test_block_container'),
+    LinkedStateMixin = require('react-addons-linked-state-mixin');
 //PROPS LIST:
 //jobType - Job type: pending, completed, accepted, available
 //job - The actual Job
+
+var customStyles = {
+  overlay: {
+    paddingLeft: '50%'
+  },
+  content: {
+    position: 'relative',
+    left: '-250px',
+    width: '500px'
+  }
+};
 
 var JobPanel = React.createClass({
   getInitialState: function () {
@@ -40,6 +51,7 @@ var JobPanel = React.createClass({
     this.listenerToken5 =
       AcceptedJobStore.addListener(this._onAcceptedJobChange);
     this._onClientJobChange();
+    this._onAvailableJobChange();
     this._onTestChange();
   },
 
@@ -132,6 +144,18 @@ var JobPanel = React.createClass({
     this.setState({availableJobs: availableJobs});
   },
 
+  openWorkModal: function () {
+    this.setState({workModalIsOpen: true});
+  },
+
+  _getMoreWork: function () {
+    this.openWorkModal();
+  },
+
+  closeWorkModal: function () {
+    this.setState({workModalIsOpen: false});
+  },
+
   //TODO deprecate
   _parseDate: function (unixDate) {
     var dateHold = new Date(0);
@@ -173,11 +197,23 @@ var JobPanel = React.createClass({
         break;
       case 3:
         if (this.state.builtAcceptedJobs.length > 0) {
-          return this.state.builtAcceptedJobs;
+          return (
+            <div>
+              {this.state.builtAcceptedJobs}
+              <div className="spacer" />
+              <div className="blue-button" onClick={this._getMoreWork}
+                >Get More Work</div>
+            </div>
+          );
         } else {
           return (
-            <div className="no-job-display" >
-              You have no accepted jobs.
+            <div>
+              <div className="no-job-display" >
+                You have no accepted jobs.
+              </div>
+              <div className="spacer" />
+              <div className="blue-button" onClick={this._getMoreWork}
+                >Get More Work</div>
             </div>
           );
         }
@@ -230,6 +266,23 @@ var JobPanel = React.createClass({
         <div className="job-list-display-container">
           {this._displayPanel()}
         </div>
+
+        <Modal
+          isOpen={this.state.workModalIsOpen}
+          onRequestClose={this.closeWorkModal}
+          style={customStyles} >
+          <h2>Get New Tutoring Jobs</h2>
+          <button onClick={this.closeWorkModal}
+            className="modal-close">close</button>
+          {
+            this.state.builtAvailableJobs.length > 0 ?
+              this.state.builtAvailableJobs :
+              <div className="notification">
+                You are not qualified for any requests in your region.
+                Please check back later.
+              </div>
+          }
+        </Modal>
       </div>
     );
   }
