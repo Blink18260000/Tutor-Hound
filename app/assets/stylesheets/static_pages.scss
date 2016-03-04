@@ -468,4 +468,21 @@ label[for] {
   width: 100%;
   position: absolute;
   bottom: 0;
+  padding-top: 40px;
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+.footer-content {
+  width: 1200px;
+  margin: auto;
+}
+
+.footer-title {
+  color: rgb(50, 58, 59);
+}
+
+.footer-link {
+  display: block;
+  color: white;
 }
