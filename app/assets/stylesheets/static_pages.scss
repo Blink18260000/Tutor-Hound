@@ -21,6 +21,10 @@ span, article, footer, time, small {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
+.test-icon-sub-text, .footer-link {
+  font-family: Source Sans Pro, Arial, Helvetica, sans-serif;
+}
+
 ul {
   list-style: none;
 }
@@ -356,7 +360,8 @@ label[for] {
 
 .job-list-navbar-tab:hover {
   border-bottom: 2px solid rgb(207, 210, 211);
-  padding-bottom: 12px
+  padding-bottom: 12px;
+  cursor: pointer;
 }
 
 .job-list-selected {
@@ -393,6 +398,8 @@ label[for] {
   height: 275px;
   display: inline-block;
   vertical-align: top;
+  position: relative;
+  color: #158aa2;
 }
 
 .tib-sat2ush {
@@ -421,6 +428,11 @@ label[for] {
 
 .test-icon-block:hover {
   cursor: pointer;
+  color: #004c5a;
+}
+
+.test-icon-block:hover:after {
+  background: 0;
 }
 
 .test-icon-shadow-block {
@@ -433,6 +445,18 @@ label[for] {
   height: 72%;
   width: 100%;
   background-color: #00F;
+}
+
+.test-icon-block:after {
+  content: "";
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.2s;
+  height: 198px;
+  width: 288px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .test-icon-text {
@@ -448,11 +472,14 @@ label[for] {
 
 .test-icon-main-text {
   display: block;
+  transition: color 0.2s;
   width: 100%;
 }
 
 .test-icon-sub-text {
   display: block;
+  font-weight: 200;
+  color: #757d7e;
   width: 100%;
 }
 
@@ -484,5 +511,6 @@ label[for] {
 
 .footer-link {
   display: block;
+  font-weight: 200;
   color: white;
 }
