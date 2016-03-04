@@ -1,7 +1,17 @@
 var React = require('react'),
+    SessionStore = require('../stores/session'),
+    TestStore = require('../stores/test'),
+    ClientJobStore = require('../stores/clientJobs'),
+    AcceptedJobStore = require('../stores/tutorJobs'),
+    AvailableJobStore = require('../stores/availableJobs'),
+    ApiUtil = require('../util/ApiUtil'),
+    HashHistory = require('react-router').hashHistory,
     Modal = require('react-modal'),
+    RequestModal = require('./request_modal'),
     Moment = require('moment'),
-    TestStore = require('../stores/test');
+    DatePicker = require('react-datepicker'),
+    TestBlockContainer = require('./test_block_container'),
+    LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var customStyles = {
   overlay: {
@@ -15,6 +25,8 @@ var customStyles = {
 };
 
 var RequestModal = React.createClass({
+  mixins: [LinkedStateMixin],
+
   getInitialState: function () {
     return {testOptions: [], timeOptions: [], builtIncompleteJobs: [],
       builtCompleteJobs: [], builtAcceptedJobs: [], builtAvailableJobs: [],
@@ -43,6 +55,29 @@ var RequestModal = React.createClass({
 
   componentDidMount: function () {
     this._generateTimes();
+    this.listenerToken2 = TestStore.addListener(this._onTestChange);
+  },
+
+  componentWillUnmount: function () {
+    this.listenerToken2.remove();
+  },
+
+  _onTestChange: function () {
+    var testData = TestStore.getTestData();
+    for (var i = 0; i < testData.length; i++) {
+      var testOption = testData[i];
+      this.state.testOptions.push(
+        <option key={i} value={testOption.id}>{testOption.name}</option>
+      );
+    }
+    this.setState({testData: testData});
+  },
+
+  componentWillReceiveProps: function (newProps)  {
+    console.log("RECEIVING PROPS:");
+    console.log(newProps);
+    this.setState({test: newProps.iconSelected});
+    this.openRequestModal();
   },
 
   openRequestModal: function () {
@@ -56,6 +91,24 @@ var RequestModal = React.createClass({
 
   closeRequestModal: function () {
     this.setState({requestModalIsOpen: false});
+  },
+
+  handleNewJob: function (event) {
+    event.preventDefault();
+    var studyTimeDate = this.state.appointmentDate.add(9, 'hours').add(this.state.time, 'seconds');
+    console.log(studyTimeDate.unix());
+    ApiUtil.createJob(
+      {
+        test_id: this.linkState('test').value,
+        date: studyTimeDate.unix()
+      }
+    );
+    this.closeRequestModal();
+    this.setState({
+      test: undefined,
+      time: undefined,
+      appointmentDate: Moment().startOf('day').add(1, 'day')
+     });
   },
 
   render: function () {

@@ -7,6 +7,7 @@ var React = require('react'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory,
     Modal = require('react-modal'),
+    JobPanel = require('./job_panel'),
     Moment = require('moment'),
     DatePicker = require('react-datepicker'),
     TestBlockContainer = require('./test_block_container'),
@@ -36,11 +37,16 @@ var Dashboard = React.createClass({
   },
 
   componentDidMount: function () {
-    this.listenerToken = SessionStore.addListener(this._onSessionChange);
-    this.listenerToken2 = TestStore.addListener(this._onTestChange);
-    this.listenerToken3 = ClientJobStore.addListener(this._onClientJobChange);
-    this.listenerToken4 = AvailableJobStore.addListener(this._onAvailableJobChange);
-    this.listenerToken5 = AcceptedJobStore.addListener(this._onAcceptedJobChange);
+    this.listenerToken =
+      SessionStore.addListener(this._onSessionChange);
+    this.listenerToken2 =
+      TestStore.addListener(this._onTestChange);
+    this.listenerToken3 =
+      ClientJobStore.addListener(this._onClientJobChange);
+    this.listenerToken4 =
+      AvailableJobStore.addListener(this._onAvailableJobChange);
+    this.listenerToken5 =
+      AcceptedJobStore.addListener(this._onAcceptedJobChange);
     this._onClientJobChange();
     this._onTestChange();
     this._generateTimes();
@@ -77,13 +83,18 @@ var Dashboard = React.createClass({
       this.state.timeOptions.push(
         <option key={t} value={t}>
           {
-            new Moment().startOf('day').add(9, 'hours').add(t, 'seconds').format('h:mm A')
+            new Moment()
+              .startOf('day')
+              .add(9, 'hours')
+              .add(t, 'seconds')
+              .format('h:mm A')
           }
         </option>
       );
     }
   },
 
+  //TODO deprecate
   _parseDate: function (unixDate) {
     var dateHold = new Date(0);
     dateHold.setUTCSeconds(unixDate);
@@ -171,8 +182,8 @@ var Dashboard = React.createClass({
 
   handleNewJob: function (event) {
     event.preventDefault();
-    var studyTimeDate = this.state.appointmentDate.add(9, 'hours').add(this.state.time, 'seconds');
-    console.log(studyTimeDate.unix());
+    var studyTimeDate = this.state.appointmentDate
+      .add(9, 'hours').add(this.state.time, 'seconds');
     ApiUtil.createJob(
       {
         test_id: this.linkState('test').value,
@@ -180,6 +191,11 @@ var Dashboard = React.createClass({
       }
     );
     this.closeRequestModal();
+    this.setState({
+      test: undefined,
+      time: undefined,
+      appointmentDate: Moment().startOf('day').add(1, 'day')
+     });
   },
 
   closeRequestModal: function () {
@@ -233,33 +249,8 @@ var Dashboard = React.createClass({
           <div className="blue-button" onClick={this.openRequestModal}>
             Request a Tutor</div>
         </div>
-        <div className="job-list-container">
-          <div className="job-list incomplete-jobs">
-            <h2>Pending Jobs</h2>
-            {this.state.builtIncompleteJobs}
-          </div>
-          <div className="job-list complete-jobs">
-            <h2>Past Jobs</h2>
-            {this.state.builtCompleteJobs}
-          </div>
-          {
-            this.state.userData.tutor_id ? (
-              <div className="job-list accepted-jobs">
-                <h2>Accepted Jobs</h2>
-                <div className="spacer" />
-                {
-                  this.state.builtAcceptedJobs.length > 0 ?
-                    this.state.builtAcceptedJobs :
-                    <div className="notification">
-                      You have no upcoming jobs. Click the button to find new work!
-                    </div>
-                }
-                <div className="spacer" />
-                <div className="blue-button" onClick={this._getMoreWork} >Get More Work</div>
-              </div> ) :
-              <div />
-          }
-        </div>
+
+        <JobPanel />
 
         <TestBlockContainer callback={this.openRequestModalWithTest} />
 
@@ -268,10 +259,12 @@ var Dashboard = React.createClass({
           onRequestClose={this.closeRequestModal}
           style={customStyles} >
           <h2>Request a Tutor</h2>
-          <button onClick={this.closeRequestModal} className="modal-close">close</button>
+          <button onClick={this.closeRequestModal}
+            className="modal-close">close</button>
           <form onSubmit={this.handleNewJob}>
             <label htmlFor="test" >Test to study for:</label>
-            <select className="dropdown" name="test" valueLink={this.linkState('test')} required={true} >
+            <select className="dropdown" name="test"
+              valueLink={this.linkState('test')} required={true} >
               <option value="" key={-1} />
               {this.state.testOptions}
             </select>
@@ -287,12 +280,14 @@ var Dashboard = React.createClass({
               name="date"/>
             <div className="spacer" />
             <label htmlFor="time" >Time to study at:</label>
-            <select className="dropdown" name="time" valueLink={this.linkState('time')} required={true} >
+            <select className="dropdown" name="time"
+              valueLink={this.linkState('time')} required={true} >
               <option value="" key={-1} />
               {this.state.timeOptions}
             </select>
             <div className="spacer" />
-            <input type="submit" className="blue-button register-button" value="Request Tutor"/>
+            <input type="submit" className="blue-button register-button"
+              value="Request Tutor"/>
           </form>
         </Modal>
 
@@ -301,12 +296,14 @@ var Dashboard = React.createClass({
           onRequestClose={this.closeWorkModal}
           style={customStyles} >
           <h2>Get New Tutoring Jobs</h2>
-          <button onClick={this.closeWorkModal} className="modal-close">close</button>
+          <button onClick={this.closeWorkModal}
+            className="modal-close">close</button>
           {
             this.state.builtAvailableJobs.length > 0 ?
               this.state.builtAvailableJobs :
               <div className="notification">
-                You are not qualified for any requests in your region. Please check back later.
+                You are not qualified for any requests in your region.
+                Please check back later.
               </div>
           }
         </Modal>
@@ -317,3 +314,34 @@ var Dashboard = React.createClass({
 });
 
 module.exports = Dashboard;
+
+/*
+  <div className="job-list-container">
+    <div className="job-list incomplete-jobs">
+      <h2>Pending Jobs</h2>
+      {this.state.builtIncompleteJobs}
+    </div>
+    <div className="job-list complete-jobs">
+      <h2>Past Jobs</h2>
+      {this.state.builtCompleteJobs}
+    </div>
+    {
+      this.state.userData.tutor_id ? (
+        <div className="job-list accepted-jobs">
+          <h2>Accepted Jobs</h2>
+          <div className="spacer" />
+          {
+            this.state.builtAcceptedJobs.length > 0 ?
+              this.state.builtAcceptedJobs :
+              <div className="notification">
+                You have no upcoming jobs. Click the button to find new work!
+              </div>
+          }
+          <div className="spacer" />
+          <div className="blue-button" onClick={this._getMoreWork}
+            >Get More Work</div>
+        </div> ) :
+        <div />
+    }
+  </div>
+*/

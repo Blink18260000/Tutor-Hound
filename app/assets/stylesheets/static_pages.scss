@@ -344,6 +344,34 @@ label[for] {
   padding: 10px;
 }
 
+.job-list-navbar {
+  width: 100%;
+  border-bottom: 1px solid rgb(207, 210, 211);
+}
+
+.job-list-navbar-tab {
+  display: inline-block;
+  padding: 0 24px 14px 24px;
+}
+
+.job-list-navbar-tab:hover {
+  border-bottom: 2px solid rgb(207, 210, 211);
+  padding-bottom: 12px
+}
+
+.job-list-selected {
+  border-bottom: 2px solid rgb(98, 106, 107);
+  padding-bottom: 12px;
+}
+
+.no-job-display {
+  border: 2px dashed rgb(207, 210, 211);
+  margin: 24px 0 16px 0;
+  padding: 32px 0;
+  text-align: center;
+  color: rgb(207, 210, 211);
+}
+
 .job-text-field {
   padding-bottom: 5px;
 }

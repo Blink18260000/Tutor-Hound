@@ -21,7 +21,6 @@ ClientJobStore.__onDispatch = function(payload) {
 
 ClientJobStore.setJobList = function(jobs) {
   _jobList = jobs;
-  console.log(_jobList);
 };
 
 ClientJobStore.getJobList = function() {

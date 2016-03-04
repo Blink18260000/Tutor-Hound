@@ -6,18 +6,19 @@ class Api::JobsController < ApplicationController
       #   "region_id = ? AND tutor_id IS NULL AND client_id <> ?",
       #   current_user.region_id, current_user.id
       # )
-      @jobs = current_user.available_jobs.joins(:client).where(
+      curUser = current_user
+      @jobs = curUser.available_jobs.includes(:tutor, :test, :client).joins(:client).where(
         "region_id = ? AND jobs.tutor_id IS NULL AND client_id <> ?",
-        current_user.region_id, current_user.id
+        curUser.region_id, curUser.id
       )
 
     #get all jobs where the current user is listed as the tutor
     elsif params[:requestType] == "tutor"
-      @jobs = Job.includes(:tutor, :test).where(tutor_id: current_user.id)
+      @jobs = Job.includes(:tutor, :test, :client).where(tutor_id: current_user.id)
 
     #get all jobs where the current user is listed as the client
     else
-      @jobs = Job.includes(:tutor, :test).where(client_id: current_user.id)
+      @jobs = Job.includes(:tutor, :test, :client).where(client_id: current_user.id)
     end
 
     #If the result is exactly one job, arrayify it so the json renders properly
