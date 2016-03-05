@@ -7,13 +7,11 @@ var React = require('react'),
     ApiUtil = require('../util/ApiUtil'),
     HashHistory = require('react-router').hashHistory,
     Modal = require('react-modal'),
+    JobDetail = require('./job_detail'),
     Moment = require('moment'),
     DatePicker = require('react-datepicker'),
     TestBlockContainer = require('./test_block_container'),
     LinkedStateMixin = require('react-addons-linked-state-mixin');
-//PROPS LIST:
-//jobType - Job type: pending, completed, accepted, available
-//job - The actual Job
 
 var customStyles = {
   overlay: {
@@ -76,24 +74,24 @@ var JobPanel = React.createClass({
     var clientJobs = ClientJobStore.getJobList();
     for (var i = 0; i < clientJobs.length; i++) {
       var job = clientJobs[i];
-      var builtJob = (
-        <div key={i} className="job-container">
-          <div className="job-text-field">
-            Test: {job.test}
-          </div>
-          <div className="job-text-field">
-            Date: {this._parseDate(job.date)}
-          </div>
-          <div className="job-text-field">
-            Tutor: {job.tutor_f_name ?
-              job.tutor_f_name + " " + job.tutor_l_name :
-              "No tutor assigned yet."}
-          </div>
-        </div>
-      );
       if (job.completed || (new Moment().unix() > job.date)) {
+        var builtJob = (
+          <JobDetail
+            key={i}
+            jobType="completed"
+            job={clientJobs[i]}
+          />
+        );
         this.state.builtCompleteJobs.push(builtJob);
       } else {
+        var builtJob = (
+          <JobDetail
+            key={i}
+            jobType="pending"
+            job={clientJobs[i]}
+            callback={this._cancelJob}
+          />
+        );
         this.state.builtIncompleteJobs.push(builtJob);
       }
     }
@@ -179,7 +177,7 @@ var JobPanel = React.createClass({
         } else {
           return (
             <div className="no-job-display" >
-              You have no current jobs.
+              You have no upcoming appointments.
             </div>
           );
         }
@@ -190,7 +188,7 @@ var JobPanel = React.createClass({
         } else {
           return (
             <div className="no-job-display" >
-              You have no past jobs.
+              You have no past appoinments.
             </div>
           );
         }
@@ -253,9 +251,9 @@ var JobPanel = React.createClass({
       <div className="job-list-container">
         <ul className="job-list-navbar">
           <li key={1} className={this.state.navbarCurrent}
-            onClick={this._selectCurrent} >Current Jobs</li>
+            onClick={this._selectCurrent} >Appointments</li>
           <li key={2} className={this.state.navbarPast}
-            onClick={this._selectPast} >Past Jobs</li>
+            onClick={this._selectPast} >Past Appointments</li>
           {
             this.state.userData.tutor_id ? (
               <li key={3} className={this.state.navbarAccepted}
@@ -291,30 +289,17 @@ var JobPanel = React.createClass({
 module.exports = JobPanel;
 
 /*
-  <div className="job-list incomplete-jobs">
-    <h2>Pending Jobs</h2>
-    {this.state.builtIncompleteJobs}
+  <div key={i} className="job-container">
+    <div className="job-text-field">
+      Test: {job.test}
+    </div>
+    <div className="job-text-field">
+      Date: {this._parseDate(job.date)}
+    </div>
+    <div className="job-text-field">
+      Tutor: {job.tutor_f_name ?
+        job.tutor_f_name + " " + job.tutor_l_name :
+        "No tutor assigned yet."}
+    </div>
   </div>
-  <div className="job-list complete-jobs">
-    <h2>Past Jobs</h2>
-    {this.state.builtCompleteJobs}
-  </div>
-  {
-    this.state.userData.tutor_id ? (
-      <div className="job-list accepted-jobs">
-        <h2>Accepted Jobs</h2>
-        <div className="spacer" />
-        {
-          this.state.builtAcceptedJobs.length > 0 ?
-            this.state.builtAcceptedJobs :
-            <div className="notification">
-              You have no upcoming jobs. Click the button to find new work!
-            </div>
-        }
-        <div className="spacer" />
-        <div className="blue-button" onClick={this._getMoreWork}
-          >Get More Work</div>
-      </div> ) :
-      <div />
-  }
 */

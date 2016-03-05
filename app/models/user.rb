@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   validates :user_name, uniqueness: {message: "Username is already taken"}
   validates :user_name, :password_digest, :session_token, :region_id, :address, :phone_number, presence: true
+  validates :phone_number, format: { with: /\d{3}-\d{3}-\d{4}/, message: "Invalid Phone Number" }
   validates :password, length: { minimum: 6, allow_nil: true }
 
   attr_reader :password

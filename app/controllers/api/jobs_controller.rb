@@ -54,6 +54,12 @@ class Api::JobsController < ApplicationController
     render :show
   end
 
+  def accept
+    @job = Job.find_by_id(params[:id])
+    @job.update(accept_params)
+    render :show
+  end
+
   def destroy
     @job = Job.find_by_id(params[:id])
     if @job.client_id == current_user.id
@@ -67,5 +73,9 @@ class Api::JobsController < ApplicationController
     params.require(:job).permit(
       :client_id, :tutor_id, :date, :test_id, :completed
     )
+  end
+
+  def accept_params
+    params.require(:job).permit(:tutor_id)
   end
 end

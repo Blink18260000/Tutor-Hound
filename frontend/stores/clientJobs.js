@@ -12,7 +12,7 @@ ClientJobStore.__onDispatch = function(payload) {
       this.setJobList(payload.jobs);
       this.__emitChange();
       break;
-    case ApiConstants.JOB_CREATED: //TODO other actions
+    case ApiConstants.JOB_CREATED:
       this.addJob(payload.job);
       this.__emitChange();
       break;
@@ -28,13 +28,11 @@ ClientJobStore.getJobList = function() {
 };
 
 ClientJobStore.addJob = function(job) {
-  job["completed"] = false;
-  job["tutor_id"] = null;
   _jobList.push(job);
 };
 
 ClientJobStore.editJob = function() {
-
+  //?????
 };
 
 module.exports = ClientJobStore;

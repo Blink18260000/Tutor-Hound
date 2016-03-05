@@ -43,8 +43,6 @@ var Dashboard = React.createClass({
       TestStore.addListener(this._onTestChange);
     this.listenerToken3 =
       ClientJobStore.addListener(this._onClientJobChange);
-    this.listenerToken4 =
-      AvailableJobStore.addListener(this._onAvailableJobChange);
     this.listenerToken5 =
       AcceptedJobStore.addListener(this._onAcceptedJobChange);
     this._onClientJobChange();
@@ -56,7 +54,6 @@ var Dashboard = React.createClass({
     this.listenerToken.remove();
     this.listenerToken2.remove();
     this.listenerToken3.remove();
-    this.listenerToken4.remove();
     this.listenerToken5.remove();
   },
 
@@ -239,6 +236,7 @@ var Dashboard = React.createClass({
             <DatePicker
               selected={this.state.appointmentDate}
               onChange={this.handleDateChange}
+              placeHolderText="Select an appointment date!"
               minDate={Moment().add(1, 'days')}
               maxDate={Moment().add(90, 'days')}
               popoverAttachment='middle left'
@@ -263,34 +261,3 @@ var Dashboard = React.createClass({
 });
 
 module.exports = Dashboard;
-
-/*
-  <div className="job-list-container">
-    <div className="job-list incomplete-jobs">
-      <h2>Pending Jobs</h2>
-      {this.state.builtIncompleteJobs}
-    </div>
-    <div className="job-list complete-jobs">
-      <h2>Past Jobs</h2>
-      {this.state.builtCompleteJobs}
-    </div>
-    {
-      this.state.userData.tutor_id ? (
-        <div className="job-list accepted-jobs">
-          <h2>Accepted Jobs</h2>
-          <div className="spacer" />
-          {
-            this.state.builtAcceptedJobs.length > 0 ?
-              this.state.builtAcceptedJobs :
-              <div className="notification">
-                You have no upcoming jobs. Click the button to find new work!
-              </div>
-          }
-          <div className="spacer" />
-          <div className="blue-button" onClick={this._getMoreWork}
-            >Get More Work</div>
-        </div> ) :
-        <div />
-    }
-  </div>
-*/

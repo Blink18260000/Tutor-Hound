@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :tutors, only: [:index, :create, :update]
     delete '/tutors/', to: 'tutors#destroy'
     resources :jobs, only: [:index, :show, :create, :update, :destroy]
+    patch '/jobs/accept/:id', to: 'jobs#accept'
+    put '/jobs/accept/:id', to: 'jobs#accept'
     resources :tests, only: [:index]
     resources :regions, only: [:index]
     resources :quals, only: [:index, :create, :destroy]

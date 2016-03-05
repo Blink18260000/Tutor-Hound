@@ -21,7 +21,7 @@ span, article, footer, time, small {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
-.test-icon-sub-text, .footer-link {
+.test-icon-sub-text, .footer-link, .job-detail-text {
   font-family: Source Sans Pro, Arial, Helvetica, sans-serif;
 }
 
@@ -375,6 +375,7 @@ label[for] {
 
 .no-job-display {
   border: 2px dashed rgb(207, 210, 211);
+  border-radius: 4px;
   margin: 24px 0 16px 0;
   padding: 32px 0;
   text-align: center;
@@ -383,6 +384,57 @@ label[for] {
 
 .job-text-field {
   padding-bottom: 5px;
+}
+
+.job-detail-container {
+  margin: 16px;
+  padding: 18px 24px;
+  background-color: white;
+  height: 170px;
+  position: relative;
+}
+
+.profile-container {
+  display: inline-block;
+  height: 100%;
+  width: 110px;
+}
+
+.job-profile-pic {
+  background-image: url(http://res.cloudinary.com/dz9mezxg3/image/upload/c_fill,g_faces,h_86,w_86/v1456786679/default_avatar_w4weuh.jpg);
+  border-radius: 43px;
+  height: 86px;
+  width: 86px;
+  display: inline-block;
+  position: relative;
+  left: 12px;
+  margin-top: 20px;
+}
+
+.profile-name {
+  display: inline-block;
+  margin:10px auto;
+  text-align: center;
+  width: 100%;
+}
+
+.job-detail-text-container {
+  position: absolute;
+  top: 18px;
+  display: inline-block;
+  width: 770px;
+}
+
+.job-detail-test {
+  display: block;
+  font-size: 28px;
+  margin: 0 0 10px 10px;
+}
+
+.job-detail-text {
+  display: block;
+  margin: 10px;
+  font-weight: 200;
 }
 
 .test-list-container {

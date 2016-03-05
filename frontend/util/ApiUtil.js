@@ -143,6 +143,19 @@ var ApiUtil = {
     });
   },
 
+  acceptJob: function(jobId, job) {
+    var that = this;
+    $.ajax({
+      method: 'PATCH',
+      url: 'api/jobs/accept/' + jobId,
+      dataType: 'json',
+      data: {job: job},
+      success: function(resp) {
+        ApiActions.jobAccepted(resp);
+      }
+    });
+  },
+
   registerAsTutor: function(jobId) {
     var that = this;
     $.ajax({

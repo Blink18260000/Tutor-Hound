@@ -12,12 +12,9 @@ TutorJobStore.__onDispatch = function(payload) {
       this.setJobList(payload.jobs);
       this.__emitChange();
       break;
-    case ApiConstants.JOB_CREATED: //TODO other actions
+    case ApiConstants.JOB_ACCEPTED:
       this.addJob(payload.job);
       this.__emitChange();
-      break;
-    case ApiConstants.JOB_RECEIVED:
-
       break;
   }
 };
@@ -31,8 +28,6 @@ TutorJobStore.getJobList = function() {
 };
 
 TutorJobStore.addJob = function(job) {
-  job["completed"] = false;
-  job["tutor_id"] = null;
   _jobList.push(job);
 };
 

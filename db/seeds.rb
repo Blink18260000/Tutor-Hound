@@ -7,18 +7,18 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Guest User Account
-User.new({user_name: "MRice", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "4045550710"}).save!
+User.new({user_name: "MRice", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "404-555-0710"}).save!
 
-User.new({user_name: "ELiu", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8446326532"}).save!
-User.new({user_name: "CMcmahon", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8333594781"}).save!
-User.new({user_name: "LOu", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8440486074"}).save!
-User.new({user_name: "MHeller", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8552103987"}).save!
-User.new({user_name: "SChristensen", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8331027343"}).save!
-User.new({user_name: "RChong", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8339217121"}).save!
-User.new({user_name: "SGerber", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8997078720"}).save!
-User.new({user_name: "SKunche", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8993033918"}).save!
-User.new({user_name: "VBudrovich", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8991184520"}).save!
-User.new({user_name: "WLiang", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "8335226547"}).save!
+User.new({user_name: "ELiu", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "844-632-6532"}).save!
+User.new({user_name: "CMcmahon", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "833-359-4781"}).save!
+User.new({user_name: "LOu", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "844-048-6074"}).save!
+User.new({user_name: "MHeller", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "855-210-3987"}).save!
+User.new({user_name: "SChristensen", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "833-102-7343"}).save!
+User.new({user_name: "RChong", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "833-921-7121"}).save!
+User.new({user_name: "SGerber", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "899-707-8720"}).save!
+User.new({user_name: "SKunche", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "899-303-3918"}).save!
+User.new({user_name: "VBudrovich", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "899-118-4520"}).save!
+User.new({user_name: "WLiang", password: "starwars", region_id: 2, address: "160 Spear Street", phone_number: "833-522-6547"}).save!
 
 Tutor.new({f_name: "Matt", l_name: "Rice", user_id: 1}).save!
 Tutor.new({f_name: "Eric", l_name: "Liu", user_id: 2}).save!

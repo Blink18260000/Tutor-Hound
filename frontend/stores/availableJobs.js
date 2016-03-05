@@ -12,12 +12,9 @@ AvailableJobStore.__onDispatch = function(payload) {
       this.setJobList(payload.jobs);
       this.__emitChange();
       break;
-    case ApiConstants.JOB_CREATED: //TODO other actions
-      this.addJob(payload.job);
+    case ApiConstants.JOB_ACCEPTED:
+      this.removeJob(payload.job);
       this.__emitChange();
-      break;
-    case ApiConstants.JOB_RECEIVED:
-
       break;
   }
 };
@@ -30,10 +27,14 @@ AvailableJobStore.getJobList = function() {
   return _jobList.slice(0);
 };
 
-AvailableJobStore.addJob = function(job) {
-  job["completed"] = false;
-  job["tutor_id"] = null;
-  _jobList.push(job);
+AvailableJobStore.removeJob = function(job) {
+  var newList = [];
+  for (var i = 0; i < _jobList.length; i++ ) {
+    if (!(_jobList[i].id === job.id)) {
+      newList.push(_jobList[i]);
+    }
+  }
+  _jobList = newList;
 };
 
 module.exports = AvailableJobStore;
