@@ -29,9 +29,11 @@ var JobDetail = React.createClass({
 
     if (this.props.callback) {
       if (this.props.jobType === "available") {
-        var thisButton = <div className="blue-button" onClick={this.props.callback} />;
+        var thisButton = <div className="blue-button job-detail-button"
+          onClick={this.props.callback.bind(null, this.props.job)} >Accept</div>;
       } else {
-        thisButton = <div className="cancel-button" onClick={this.props.callback} />;
+        thisButton = <div className="gray-button job-detail-button"
+          onClick={this.props.callback.bind(null, this.props.job)} >Cancel</div>;
       }
     } else {
       thisButton = <div/>;
@@ -47,16 +49,26 @@ var JobDetail = React.createClass({
 
   render: function () {
     return (
-      <div className="job-detail-container" onClick={this.props.callback}>
+      <div className="job-detail-container">
         <div className="profile-container">
           <div className="job-profile-pic" />
-          <div className="profile-name">
-            {
-              this.props.job.tutor_f_name ?
-              this.props.job.tutor_f_name + " " + this.props.job.tutor_l_name :
-              "No Tutor Assigned"
-            }
-          </div>
+          {this.props.jobType === 'pending' || this.props.jobType === 'completed' ?
+            (
+              <div className="profile-name">
+                {
+                  this.props.job.tutor_f_name ?
+                  this.props.job.tutor_f_name + " " + this.props.job.tutor_l_name :
+                  "No Tutor Assigned"
+                }
+              </div>
+            ) : (
+              <div className="profile-name">
+                {
+                  this.props.job.client
+                }
+              </div>
+            )
+          }
         </div>
 
         <div className="job-detail-text-container">

@@ -66,6 +66,13 @@ var ApiActions = {
     });
   },
 
+  jobDeclined: function (job) {
+    Dispatcher.dispatch({
+      actionType: ApiConstants.JOB_DECLINED,
+      job: job
+    });
+  },
+
   jobReceived: function (job) {
     Dispatcher.dispatch({
       actionType: ApiConstants.JOB_RECEIVED,

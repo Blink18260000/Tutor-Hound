@@ -19,8 +19,14 @@ var customStyles = {
   },
   content: {
     position: 'relative',
-    left: '-250px',
-    width: '500px'
+    left: '-421px',
+    right: '0',
+    top: '40px',
+    bottom: '0',
+    width: '800px',
+    maxHeight: '80vh',
+    backgroundColor: '#f5f6f6',
+    overflowY: 'auto'
   }
 };
 
@@ -68,6 +74,29 @@ var JobPanel = React.createClass({
     this.setState({testData: testData});
   },
 
+  _cancelJob: function (job, e) {
+    e.preventDefault();
+    console.log('cancel');
+    console.log(job);
+    console.log(e);
+    ApiUtil.deleteJob(job.id);
+  },
+
+  _cancelWork: function (job, e) {
+    console.log('cancel work');
+    console.log(job);
+    console.log(e);
+    ApiUtil.declineJob(job.id, job);
+  },
+
+  _acceptWork: function (job, e) {
+    e.preventDefault();
+    console.log('accept');
+    console.log(job);
+    console.log(e);
+    ApiUtil.acceptJob(job.id, job);
+  },
+
   _onClientJobChange: function () {
     this.state.builtCompleteJobs = [];
     this.state.builtIncompleteJobs = [];
@@ -77,16 +106,16 @@ var JobPanel = React.createClass({
       if (job.completed || (new Moment().unix() > job.date)) {
         var builtJob = (
           <JobDetail
-            key={i}
+            key={job.id}
             jobType="completed"
             job={clientJobs[i]}
           />
         );
         this.state.builtCompleteJobs.push(builtJob);
       } else {
-        var builtJob = (
+        builtJob = (
           <JobDetail
-            key={i}
+            key={job.id}
             jobType="pending"
             job={clientJobs[i]}
             callback={this._cancelJob}
@@ -104,17 +133,12 @@ var JobPanel = React.createClass({
     for (var i = 0; i < acceptedJobs.length; i++) {
       var job = acceptedJobs[i];
       this.state.builtAcceptedJobs.push(
-        <div key={i} className="job-container">
-          <div className="job-text-field">
-            Test: {job.test}
-          </div>
-          <div className="job-text-field">
-            Date: {this._parseDate(job.date)}
-          </div>
-          <div className="job-text-field">
-            Client: {job.client}
-          </div>
-        </div>
+        <JobDetail
+          key={job.id}
+          jobType="accepted"
+          job={acceptedJobs[i]}
+          callback={this._cancelWork}
+        />
       );
     }
     this.setState({acceptedJobs: acceptedJobs});
@@ -126,17 +150,12 @@ var JobPanel = React.createClass({
     for (var i = 0; i < availableJobs.length; i++) {
       var job = availableJobs[i];
       this.state.builtAvailableJobs.push(
-        <div key={i} className="job-container">
-          <div className="job-text-field">
-            Test: {job.test}
-          </div>
-          <div className="job-text-field">
-            Date: {this._parseDate(job.date)}
-          </div>
-          <div className="job-text-field">
-            Client: {job.client}
-          </div>
-        </div>
+        <JobDetail
+          key={job.id}
+          jobType="available"
+          job={availableJobs[i]}
+          callback={this._acceptWork}
+        />
       );
     }
     this.setState({availableJobs: availableJobs});
@@ -152,13 +171,6 @@ var JobPanel = React.createClass({
 
   closeWorkModal: function () {
     this.setState({workModalIsOpen: false});
-  },
-
-  //TODO deprecate
-  _parseDate: function (unixDate) {
-    var dateHold = new Date(0);
-    dateHold.setUTCSeconds(unixDate);
-    return dateHold.toLocaleDateString();
   },
 
   componentWillUnmount: function () {
@@ -287,19 +299,3 @@ var JobPanel = React.createClass({
 });
 
 module.exports = JobPanel;
-
-/*
-  <div key={i} className="job-container">
-    <div className="job-text-field">
-      Test: {job.test}
-    </div>
-    <div className="job-text-field">
-      Date: {this._parseDate(job.date)}
-    </div>
-    <div className="job-text-field">
-      Tutor: {job.tutor_f_name ?
-        job.tutor_f_name + " " + job.tutor_l_name :
-        "No tutor assigned yet."}
-    </div>
-  </div>
-*/

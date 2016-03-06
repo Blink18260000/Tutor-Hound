@@ -56,7 +56,14 @@ class Api::JobsController < ApplicationController
 
   def accept
     @job = Job.find_by_id(params[:id])
-    @job.update(accept_params)
+    curId = current_user.tutor.id
+    @job.update!({tutor_id: curId})
+    render :show
+  end
+
+  def decline
+    @job = Job.find_by_id(params[:id])
+    @job.update!({tutor_id: nil})
     render :show
   end
 

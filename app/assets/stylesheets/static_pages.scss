@@ -293,6 +293,7 @@ label[for] {
 }
 
 .blue-button:hover {
+  cursor: pointer;
   background-color: #1da3bf;
   color: #ffffff;
 }
@@ -312,6 +313,7 @@ label[for] {
 }
 
 .gray-button:hover {
+  cursor: pointer;
   background-color: #ebecec;
 }
 
@@ -392,6 +394,7 @@ label[for] {
   background-color: white;
   height: 170px;
   position: relative;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .profile-container {
@@ -422,7 +425,7 @@ label[for] {
   position: absolute;
   top: 18px;
   display: inline-block;
-  width: 770px;
+  width: 600px;
 }
 
 .job-detail-test {
@@ -435,6 +438,12 @@ label[for] {
   display: block;
   margin: 10px;
   font-weight: 200;
+}
+
+.job-detail-button {
+  position: absolute;
+  bottom: 18px;
+  right: 24px;
 }
 
 .test-list-container {

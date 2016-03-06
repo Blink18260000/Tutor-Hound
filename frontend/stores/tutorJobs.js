@@ -16,6 +16,10 @@ TutorJobStore.__onDispatch = function(payload) {
       this.addJob(payload.job);
       this.__emitChange();
       break;
+    case ApiConstants.JOB_DECLINED:
+      this.deleteJob(payload.job);
+      this.__emitChange();
+      break;
   }
 };
 
@@ -29,6 +33,16 @@ TutorJobStore.getJobList = function() {
 
 TutorJobStore.addJob = function(job) {
   _jobList.push(job);
+};
+
+TutorJobStore.deleteJob = function(job) {
+  var newList = [];
+  for (var i = 0; i < _jobList.length ; i++ ) {
+    if (!(_jobList[i].id === job.id)) {
+      newList.push(_jobList[i]);
+    }
+  }
+  _jobList = newList;
 };
 
 module.exports = TutorJobStore;

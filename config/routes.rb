@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :jobs, only: [:index, :show, :create, :update, :destroy]
     patch '/jobs/accept/:id', to: 'jobs#accept'
     put '/jobs/accept/:id', to: 'jobs#accept'
+    patch '/jobs/decline/:id', to: 'jobs#decline'
+    put '/jobs/decline/:id', to: 'jobs#decline'
     resources :tests, only: [:index]
     resources :regions, only: [:index]
     resources :quals, only: [:index, :create, :destroy]

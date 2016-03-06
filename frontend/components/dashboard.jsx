@@ -32,7 +32,7 @@ var Dashboard = React.createClass({
       builtCompleteJobs: [], builtAcceptedJobs: [], builtAvailableJobs: [],
       availableJobs: [], acceptedJobs: [], testData: TestStore.getTestData(),
       userData: SessionStore.info(), requestModalIsOpen: false,
-      workModalIsOpen: false, clientJobs: [],
+      clientJobs: [],
       appointmentDate: Moment().startOf('day').add(1, 'day')};
   },
 
@@ -41,11 +41,6 @@ var Dashboard = React.createClass({
       SessionStore.addListener(this._onSessionChange);
     this.listenerToken2 =
       TestStore.addListener(this._onTestChange);
-    this.listenerToken3 =
-      ClientJobStore.addListener(this._onClientJobChange);
-    this.listenerToken5 =
-      AcceptedJobStore.addListener(this._onAcceptedJobChange);
-    this._onClientJobChange();
     this._onTestChange();
     this._generateTimes();
   },
@@ -53,8 +48,6 @@ var Dashboard = React.createClass({
   componentWillUnmount: function () {
     this.listenerToken.remove();
     this.listenerToken2.remove();
-    this.listenerToken3.remove();
-    this.listenerToken5.remove();
   },
 
   _onSessionChange: function () {
@@ -89,78 +82,6 @@ var Dashboard = React.createClass({
         </option>
       );
     }
-  },
-
-  //TODO deprecate
-  _parseDate: function (unixDate) {
-    var dateHold = new Date(0);
-    dateHold.setUTCSeconds(unixDate);
-    return dateHold.toLocaleDateString();
-  },
-
-  _onClientJobChange: function () {
-    this.state.builtCompleteJobs = [];
-    this.state.builtIncompleteJobs = [];
-    var clientJobs = ClientJobStore.getJobList();
-    for (var i = 0; i < clientJobs.length; i++) {
-      var job = clientJobs[i];
-      if (job.completed) {
-        this.state.builtCompleteJobs.push(
-          <div key={i} className="job-container">
-            <div className="job-text-field">
-              Test: {job.test}
-            </div>
-            <div className="job-text-field">
-              Date: {this._parseDate(job.date)}
-            </div>
-            <div className="job-text-field">
-              Tutor: {job.tutor_f_name ?
-                job.tutor_f_name + " " + job.tutor_l_name :
-                "No tutor assigned yet."}
-            </div>
-          </div>
-        );
-      } else {
-        this.state.builtIncompleteJobs.push(
-          <div key={i} className="job-container">
-            <div className="job-text-field">
-              Test: {job.test}
-            </div>
-            <div className="job-text-field">
-              Date: {this._parseDate(job.date)}
-            </div>
-            <div className="job-text-field">
-              Tutor: {job.tutor_f_name ?
-                job.tutor_f_name + " " + job.tutor_l_name :
-                "No tutor assigned yet."}
-            </div>
-          </div>
-        );
-      }
-    }
-    this.setState({clientJobs: clientJobs});
-  },
-
-  _onAcceptedJobChange: function () {
-    this.state.builtAcceptedJobs = [];
-    var acceptedJobs = AcceptedJobStore.getJobList();
-    for (var i = 0; i < acceptedJobs.length; i++) {
-      var job = acceptedJobs[i];
-      this.state.builtAcceptedJobs.push(
-        <div key={i} className="job-container">
-          <div className="job-text-field">
-            Test: {job.test}
-          </div>
-          <div className="job-text-field">
-            Date: {this._parseDate(job.date)}
-          </div>
-          <div className="job-text-field">
-            Client: {job.client}
-          </div>
-        </div>
-      );
-    }
-    this.setState({acceptedJobs: acceptedJobs});
   },
 
   openRequestModal: function () {

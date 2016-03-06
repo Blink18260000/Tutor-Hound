@@ -74,8 +74,6 @@ var RequestModal = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps)  {
-    console.log("RECEIVING PROPS:");
-    console.log(newProps);
     this.setState({test: newProps.iconSelected});
     this.openRequestModal();
   },
@@ -96,7 +94,6 @@ var RequestModal = React.createClass({
   handleNewJob: function (event) {
     event.preventDefault();
     var studyTimeDate = this.state.appointmentDate.add(9, 'hours').add(this.state.time, 'seconds');
-    console.log(studyTimeDate.unix());
     ApiUtil.createJob(
       {
         test_id: this.linkState('test').value,

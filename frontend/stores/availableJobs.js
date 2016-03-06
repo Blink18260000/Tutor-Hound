@@ -16,6 +16,10 @@ AvailableJobStore.__onDispatch = function(payload) {
       this.removeJob(payload.job);
       this.__emitChange();
       break;
+    case ApiConstants.JOB_DECLINED:
+      this.addJob(payload.job);
+      this.__emitChange();
+      break;
   }
 };
 
@@ -35,6 +39,10 @@ AvailableJobStore.removeJob = function(job) {
     }
   }
   _jobList = newList;
+};
+
+AvailableJobStore.addJob = function(job) {
+  _jobList.push(job);
 };
 
 module.exports = AvailableJobStore;

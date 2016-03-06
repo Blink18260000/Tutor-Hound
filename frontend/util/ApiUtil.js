@@ -156,6 +156,19 @@ var ApiUtil = {
     });
   },
 
+  declineJob: function(jobId, job) {
+    var that = this;
+    $.ajax({
+      method: 'PATCH',
+      url: 'api/jobs/decline/' + jobId,
+      dataType: 'json',
+      data: {job: job},
+      success: function(resp) {
+        ApiActions.jobDeclined(resp);
+      }
+    });
+  },
+
   registerAsTutor: function(jobId) {
     var that = this;
     $.ajax({
