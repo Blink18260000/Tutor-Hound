@@ -61,6 +61,9 @@ var JobPanel = React.createClass({
 
   _onSessionChange: function () {
     this.setState({userData: SessionStore.info()});
+    ApiUtil.fetchJobsAsClient();
+    ApiUtil.fetchJobsAsTutor();
+    ApiUtil.fetchAvailableJobs();
   },
 
   _onTestChange: function () {

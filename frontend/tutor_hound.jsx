@@ -29,20 +29,9 @@ var App = React.createClass({
     ApiUtil.fetchTests();
     ApiUtil.fetchUserData();
     ApiUtil.fetchJobsAsClient();
-    this.listenerToken = SessionStore.addListener(this._onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.listenerToken.remove();
-  },
-
-  _onChange: function () {
-    if (SessionStore.info().tutor_id) {
-      ApiUtil.fetchTutor();
-      ApiUtil.fetchJobsAsTutor();
-      ApiUtil.fetchAvailableJobs();
-    }
-    this.listenerToken.remove();
+    ApiUtil.fetchTutor();
+    ApiUtil.fetchJobsAsTutor();
+    ApiUtil.fetchAvailableJobs();
   },
 
   render: function () {
