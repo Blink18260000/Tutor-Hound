@@ -76,24 +76,15 @@ var JobPanel = React.createClass({
 
   _cancelJob: function (job, e) {
     e.preventDefault();
-    console.log('cancel');
-    console.log(job);
-    console.log(e);
     ApiUtil.deleteJob(job.id);
   },
 
   _cancelWork: function (job, e) {
-    console.log('cancel work');
-    console.log(job);
-    console.log(e);
     ApiUtil.declineJob(job.id, job);
   },
 
   _acceptWork: function (job, e) {
     e.preventDefault();
-    console.log('accept');
-    console.log(job);
-    console.log(e);
     ApiUtil.acceptJob(job.id, job);
   },
 
