@@ -14,6 +14,19 @@ var ApiUtil = {
     });
   },
 
+  uploadPhoto: function (url) {
+    var that = this;
+    $.ajax({
+      method: 'PATCH',
+      url: 'api/users/image',
+      dataType: 'json',
+      data: {url: url},
+      success: function(resp) {
+        ApiActions.receiveUser(resp);
+      }
+    });
+  },
+
   //Tutor API
   fetchTutor: function() {
     var that = this;

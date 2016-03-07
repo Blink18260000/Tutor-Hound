@@ -20,7 +20,11 @@ TestStore.setTestData = function(tests) {
 };
 
 TestStore.getTestData = function() {
-  return _testList.slice(0);
+  if (_testList) {
+    return _testList.slice(0);    
+  } else {
+    return _testList;
+  }
 };
 
 module.exports = TestStore;

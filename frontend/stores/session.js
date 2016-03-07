@@ -29,12 +29,14 @@ SessionStore.updateUserData = function(user) {
   _userData["region_id"] = user.region_id;
   _userData["username"] = user.username;
   _userData["tutor_id"] = user.tutor_id;
+  _userData["url"] = user.url;
 };
 
 SessionStore.updateTutorData = function(tutor) {
   _userData["tutor_id"] = tutor.id;
   _userData["f_name"] = tutor.f_name;
   _userData["l_name"] = tutor.l_name;
+  _userData["quals"] = tutor.quals;
 };
 
 SessionStore.info = function () {
@@ -46,6 +48,12 @@ SessionStore.info = function () {
   tempUserData["tutor_id"] = _userData["tutor_id"];
   tempUserData["f_name"] = _userData["f_name"];
   tempUserData["l_name"] = _userData["l_name"];
+  tempUserData["url"] = _userData["url"];
+  if (_userData["quals"]) {
+    tempUserData["quals"] = _userData["quals"].slice(0);
+  } else {
+    tempUserData["quals"] = _userData["quals"];
+  }
   return tempUserData;
 };
 

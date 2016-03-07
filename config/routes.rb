@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
     patch '/users/', to: 'users#update'
     put '/users/', to: 'users#update'
+    patch '/users/image', to: 'users#add_photo'
+    put '/users/image', to: 'users#add_photo'
     resources :tutors, only: [:index, :create, :update]
     delete '/tutors/', to: 'tutors#destroy'
     resources :jobs, only: [:index, :show, :create, :update, :destroy]

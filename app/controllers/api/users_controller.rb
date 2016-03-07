@@ -11,6 +11,13 @@ class Api::UsersController < ApplicationController
     render :show
   end
 
+  def add_photo
+    @user = current_user
+
+    @user.update(url: params[:url])
+    render :show
+  end
+
   def destroy
     @user = current_user
     unless @user.id == 1

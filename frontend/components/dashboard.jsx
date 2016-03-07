@@ -124,7 +124,11 @@ var Dashboard = React.createClass({
     return (
       <div className="content-container">
         <div className="salute-container">
-          <div className="profile-pic" />
+          {
+            this.state.userData.url ?
+            <div className="profile-pic"><img className="profile-pic-wrapper" src={this.state.userData.url}/></div> :
+            <div className="profile-pic default-pic" />
+          }
           <div className="text-content">
             <h1>Welcome to TutorHound, {this.state.userData["f_name"] ?
               this.state.userData["f_name"] :

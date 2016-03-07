@@ -39,11 +39,26 @@ var JobDetail = React.createClass({
       thisButton = <div/>;
     }
 
+    if (this.props.jobType === "pending" || this.props.jobType === "completed") {
+      var profileComponent = (
+          this.props.job.tutor_url ?
+          <div className="job-profile-pic"><img className="profile-pic-wrapper" src={this.props.job.tutor_url}/></div> :
+          <div className="job-profile-pic default-pic" />
+      );
+    } else {
+      profileComponent = (
+          this.props.job.client_url ?
+          <div className="job-profile-pic"><img className="profile-pic-wrapper" src={this.props.job.client_url}/></div> :
+          <div className="job-profile-pic default-pic" />
+      );
+    }
+
     this.setState({
       date: dateMoment.format('MMMM Do'),
       time: dateMoment.format('h:mm A'),
       phone: thisPhone,
-      button: thisButton
+      button: thisButton,
+      profileComponent: profileComponent
     });
   },
 
@@ -51,7 +66,9 @@ var JobDetail = React.createClass({
     return (
       <div className="job-detail-container">
         <div className="profile-container">
-          <div className="job-profile-pic" />
+          {
+            this.state.profileComponent
+          }
           {this.props.jobType === 'pending' || this.props.jobType === 'completed' ?
             (
               <div className="profile-name">

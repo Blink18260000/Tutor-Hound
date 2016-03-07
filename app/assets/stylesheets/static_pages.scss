@@ -21,8 +21,13 @@ span, article, footer, time, small {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
-.test-icon-sub-text, .footer-link, .job-detail-text {
+.test-icon-sub-text, .footer-link, .job-detail-text, .account-panel-text-field,
+.account-qual {
   font-family: Source Sans Pro, Arial, Helvetica, sans-serif;
+}
+
+.default-pic {
+  background-image: url(http://res.cloudinary.com/dz9mezxg3/image/upload/c_fill,g_faces,h_86,w_86/v1456786679/default_avatar_w4weuh.jpg);
 }
 
 ul {
@@ -148,7 +153,6 @@ input[type="submit"] {
 }
 
 .profile-pic {
-  background-image: url(http://res.cloudinary.com/dz9mezxg3/image/upload/c_fill,g_faces,h_86,w_86/v1456786679/default_avatar_w4weuh.jpg);
   border-radius: 43px;
   height: 86px;
   width: 86px;
@@ -157,6 +161,7 @@ input[type="submit"] {
   position: relative;
   top: 10px;
   right: 7px;
+  overflow: hidden;
 }
 
 .salute-container {
@@ -199,6 +204,22 @@ h3 {
 
 .account-panel-body {
   margin-bottom: 16px;
+  position: relative;
+}
+
+.account-panel-text-label {
+  display: inline-block;
+}
+
+.account-panel-text-field {
+  padding: 0 0 0 5px;
+  display: inline-block;
+  font-weight: 300;
+}
+
+.account-qual {
+  display: block;
+  padding: 0 0 0 15px;
 }
 
 .account-management-container {
@@ -272,6 +293,32 @@ label[for] {
   float: left;
   width: 100%;
   min-height: 40px;
+}
+
+.account-info-profile-pic-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 130px;
+}
+
+.profile-pic-wrapper {
+  position: relative;
+  width: 86px;
+}
+
+.account-info-profile-pic {
+  position: relative;
+  border-radius: 43px;
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 10px;
+  display: block;
+  overflow: hidden;
+}
+
+.account-info-text-field {
+  padding: 5px;
 }
 
 .header-button {
@@ -404,7 +451,6 @@ label[for] {
 }
 
 .job-profile-pic {
-  background-image: url(http://res.cloudinary.com/dz9mezxg3/image/upload/c_fill,g_faces,h_86,w_86/v1456786679/default_avatar_w4weuh.jpg);
   border-radius: 43px;
   height: 86px;
   width: 86px;
@@ -412,6 +458,7 @@ label[for] {
   position: relative;
   left: 12px;
   margin-top: 20px;
+  overflow: hidden;
 }
 
 .profile-name {
